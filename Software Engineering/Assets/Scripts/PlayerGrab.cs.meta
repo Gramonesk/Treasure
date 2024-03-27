@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a9e627eac30e89f47b85bd6cbc53c529
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Hand: {instanceID: 0}
+  - raydist: {fileID: 11400000, guid: 2a2c92647032aad468eb02de3b235606, type: 2}
+  - controller: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

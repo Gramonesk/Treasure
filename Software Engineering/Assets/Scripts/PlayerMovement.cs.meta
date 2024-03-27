@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 56f334d4b0e6fe643b53f18e468be47b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Facedirection: {instanceID: 0}
+  - PlayerRotateSpeed: {fileID: 11400000, guid: c54db541bc0f1eb4995734ceed1618e3, type: 2}
+  - speed: {fileID: 11400000, guid: 6d6ad9e9ee3987841b63d2ea2b02e707, type: 2}
+  - jumpspeed: {fileID: 11400000, guid: 168371384f1c7564b95c4d49793caf75, type: 2}
+  - gravity: {fileID: 11400000, guid: b5c818355b7e63e4b908513f810b4466, type: 2}
+  - dashMagnitude: {fileID: 11400000, guid: 4a1029db62a20554283f62c029eadda0, type: 2}
+  - dashStartMoveDuration: {fileID: 11400000, guid: 3c6377b9d6b62764f8bed2bcd25d3fc8, type: 2}
+  - frictionspeed: {fileID: 11400000, guid: bd1814be458ce3f4b994151b0eec45bf, type: 2}
+  - forceDamp: {fileID: 11400000, guid: dd1320598fd9bb4458eade6096199183, type: 2}
+  - forcespeed: {fileID: 11400000, guid: fd745ccae17a1214d863deb2bf80a3f9, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
