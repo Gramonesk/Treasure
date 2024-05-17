@@ -194,4 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86e025862c3ee8f41934970e3d591f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _material: {fileID: 0}
+  _spawnedProjectile: 0
   _prefabBall: {fileID: 2149338194562223315, guid: 6a9d638053868b947a106173ab1f145d, type: 3}
+  _prefabPhysxBall: {fileID: 834145627080134418, guid: 088b0834438efdb4989c9131d5b7402e, type: 3}
