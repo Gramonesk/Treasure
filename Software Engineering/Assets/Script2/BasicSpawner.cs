@@ -13,7 +13,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     private NetworkRunner _runner;
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
-
+    //Keyboard keyboard = Keyboard.current;
+    //Mouse mouse = Mouse.current;
     async void StartGame(GameMode mode)
     {
         // Create the Fusion runner and let it know that we will be providing user input
