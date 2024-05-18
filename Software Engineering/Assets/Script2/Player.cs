@@ -81,28 +81,28 @@ public class Player : NetworkBehaviour
                 _forward = data.direction;
             if (HasStateAuthority && delay.ExpiredOrNotRunning(Runner))
             {
-                if (data.buttons.IsSet(InputButton.Left_Click))
-                {
-                    delay = TickTimer.CreateFromSeconds(Runner, 0.5f);
-                    Runner.Spawn(_prefabBall,
-                    transform.position + _forward, Quaternion.LookRotation(_forward),
-                    Object.InputAuthority, (runner, o) =>
-                    {
-                        o.GetComponent<Ball>().Init();
-                    });
-                    spawnedProjectile = !spawnedProjectile;
-                }
-                else if(data.buttons.IsSet(InputButton.Right_Click))
-                {
-                    delay = TickTimer.CreateFromSeconds(Runner, 0.5f);
-                    Runner.Spawn(_prefabPhysxBall,
-                    transform.position + _forward, Quaternion.LookRotation(_forward),
-                    Object.InputAuthority, (runner, o) =>
-                    {
-                        o.GetComponent<PhysxBall>().Init(10 * _forward);
-                    });
-                    spawnedProjectile = !spawnedProjectile;
-                }
+                //if (data.buttons.IsSet(InputButton.Left_Click))
+                //{
+                //    delay = TickTimer.CreateFromSeconds(Runner, 0.5f);
+                //    Runner.Spawn(_prefabBall,
+                //    transform.position + _forward, Quaternion.LookRotation(_forward),
+                //    Object.InputAuthority, (runner, o) =>
+                //    {
+                //        o.GetComponent<Ball>().Init();
+                //    });
+                //    spawnedProjectile = !spawnedProjectile;
+                //}
+                //else if(data.buttons.IsSet(InputButton.Right_Click))
+                //{
+                //    delay = TickTimer.CreateFromSeconds(Runner, 0.5f);
+                //    Runner.Spawn(_prefabPhysxBall,
+                //    transform.position + _forward, Quaternion.LookRotation(_forward),
+                //    Object.InputAuthority, (runner, o) =>
+                //    {
+                //        o.GetComponent<PhysxBall>().Init(10 * _forward);
+                //    });
+                //    spawnedProjectile = !spawnedProjectile;
+                //}
             }
         }
     }
