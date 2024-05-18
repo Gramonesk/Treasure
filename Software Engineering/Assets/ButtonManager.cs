@@ -5,16 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    public GameObject Panel;
-
-    public void Play()
+    public void PlayScene(string name)
     {
-        SceneManager.LoadScene("GameScene");
-    }
-
-    public void Setting()
-    {
-        Panel.SetActive(true);
+        SceneManager.LoadScene(name);
     }
 
     public void Exit()
@@ -22,8 +15,4 @@ public class ButtonManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void Back_Setting()
-    {
-        Panel.SetActive(false);
-    }
 }

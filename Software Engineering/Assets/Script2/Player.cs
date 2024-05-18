@@ -81,7 +81,7 @@ public class Player : NetworkBehaviour
                 _forward = data.direction;
             if (HasStateAuthority && delay.ExpiredOrNotRunning(Runner))
             {
-                if (data.buttons.IsSet(NetInput.MOUSEBUTTON0))
+                if (data.buttons.IsSet(InputButton.Left_Click))
                 {
                     delay = TickTimer.CreateFromSeconds(Runner, 0.5f);
                     Runner.Spawn(_prefabBall,
@@ -92,7 +92,7 @@ public class Player : NetworkBehaviour
                     });
                     spawnedProjectile = !spawnedProjectile;
                 }
-                else if(data.buttons.IsSet(NetInput.MOUSEBUTTON1))
+                else if(data.buttons.IsSet(InputButton.Right_Click))
                 {
                     delay = TickTimer.CreateFromSeconds(Runner, 0.5f);
                     Runner.Spawn(_prefabPhysxBall,

@@ -8,13 +8,60 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
+public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdate
 {
+    private NetInput accumulatedInput;
+    private bool resetInput;
     private NetworkRunner _runner;
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     //Keyboard keyboard = Keyboard.current;
-    //Mouse mouse = Mouse.current;
+    Mouse mouse = Mouse.current;
+    void IBeforeUpdate.BeforeUpdate()
+    {
+        //if (resetInput)
+        //{
+        //    resetInput = false;
+        //    accumulatedInput = default;
+        //}
+        //Keyboard keyboard = Keyboard.current;
+        //Mouse mouse = Mouse.current;
+        //if (keyboard != null && (keyboard.enterKey.wasPressedThisFrame || keyboard.numpadEnterKey.wasPressedThisFrame || keyboard.escapeKey.wasPressedThisFrame))
+        //{
+        //    if (Cursor.lockState == CursorLockMode.Locked)
+        //    {
+        //        Cursor.lockState = CursorLockMode.None;
+        //        Cursor.visible = true;
+        //    }
+        //    else
+        //    {
+        //        Cursor.lockState = CursorLockMode.Locked;
+        //        Cursor.visible = false;
+        //    }
+        //}
+
+        //if (Cursor.lockState != CursorLockMode.Locked) return;
+
+        //NetworkButtons buttons = default;
+        //if (keyboard != null)
+        //{
+        //    Vector3 moveDirection = Vector3.zero;
+        //    if (keyboard.wKey.isPressed) moveDirection += Vector3.forward;
+        //    if (keyboard.sKey.isPressed) moveDirection += Vector3.back;
+        //    if (keyboard.aKey.isPressed) moveDirection += Vector3.left;
+        //    if (keyboard.dKey.isPressed) moveDirection += Vector3.right;
+
+        //    accumulatedInput.direction += moveDirection;
+        //    buttons.Set(InputButton.Jump, keyboard.spaceKey.isPressed);
+        //}
+        //if(mouse != null)
+        //{
+        //    buttons.Set(InputButton.Left_Click, mouse.leftButton.isPressed);
+        //    buttons.Set(InputButton.Right_Click, mouse.rightButton.isPressed);
+        //}
+        //accumulatedInput.buttons = new NetworkButtons(accumulatedInput.buttons.Bits | buttons.Bits);
+
+    }
     async void StartGame(GameMode mode)
     {
         // Create the Fusion runner and let it know that we will be providing user input
@@ -77,14 +124,11 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     void INetworkRunnerCallbacks.OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
     {
     }
-    private bool _mouseButton0, _mouseButton1;
-    private void Update()
-    {
-        _mouseButton0 = _mouseButton0 || Input.GetMouseButton(0);
-        _mouseButton1 = _mouseButton1 || Input.GetMouseButton(1);
-    }
     void INetworkRunnerCallbacks.OnInput(NetworkRunner runner, NetworkInput input)
     {
+        //accumulatedInput.direction.Normalize();
+        //input.Set(accumulatedInput);
+        //resetInput = true;
         var data = new NetInput();
 
         if (Input.GetKey(KeyCode.W))
@@ -99,10 +143,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         if (Input.GetKey(KeyCode.D))
             data.direction += Vector3.right;
 
-        data.buttons.Set(NetInput.MOUSEBUTTON0, _mouseButton0);
-        _mouseButton0 = false;
-        data.buttons.Set(NetInput.MOUSEBUTTON1, _mouseButton1);
-        _mouseButton1 = false;
+        data.buttons.Set(InputButton.Left_Click, mouse.leftButton.isPressed);
+        data.buttons.Set(InputButton.Right_Click, mouse.rightButton.isPressed);
         input.Set(data);
     }
 
@@ -172,5 +214,6 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     void INetworkRunnerCallbacks.OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)
     {
     }
+
 
 }

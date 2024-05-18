@@ -5,14 +5,14 @@ using UnityEngine;
 
 public enum InputButton
 {
-    Jump
+    Left_Click,
+    Right_Click,
+    Jump,
+
 }
 //INetwork = allows struct to feed to fusion so it can be replicated properly to server
 public struct NetInput : INetworkInput
-{
-    public const byte MOUSEBUTTON0 = 1;
-    public const byte MOUSEBUTTON1 = 2;
-    
+{   
     public NetworkButtons buttons;
     public Vector3 direction;
 }
