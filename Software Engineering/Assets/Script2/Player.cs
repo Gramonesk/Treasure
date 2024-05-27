@@ -4,6 +4,7 @@ using UnityEngine;
 using Fusion;
 using Fusion.Addons.KCC;
 using TMPro;
+using static Fusion.NetworkBehaviour;
 
 public class Player : NetworkBehaviour
 {
@@ -12,8 +13,11 @@ public class Player : NetworkBehaviour
     public Transform detector;
     public float distance;
     public LayerMask layermask;
+    public TextMeshProUGUI playernickname;
 
     public NetworkPrefabRef prefab;
+
+    [Networked] public string nickname { get; set; }
 
     private Material _material;
     [HideInInspector][Networked] public bool spawnedProjectile { get; set; }
@@ -60,6 +64,12 @@ public class Player : NetworkBehaviour
     public override void Spawned()
     {
         _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState);
+        if (HasInputAuthority)
+        {
+            nickname = PlayerPrefs.GetString("PlayerNickname");
+            RPC_PlayerName(nickname);
+        }
+
     }
     private void Update()
     {
@@ -82,6 +92,8 @@ public class Player : NetworkBehaviour
         }
         _material.color = Color.Lerp(_material.color, Color.blue, Time.deltaTime);
     }
+
+
     private NetworkObject item;
     private Item obj;
     public override void FixedUpdateNetwork()
@@ -148,4 +160,26 @@ public class Player : NetworkBehaviour
             //}
         }
     }
+
+
+    static void OnNicknameChanged()
+    {
+
+    }
+
+    private void onNicknameChanged()
+    {
+        playernickname.text = nickname.ToString();
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    private void RPC_PlayerName(string name)
+    {
+        nickname = name;
+        Debug.Log($"Nickname changed for to {nickname} with {name}");
+        playernickname.text = name.ToString();
+    }
+
+
+
 }
