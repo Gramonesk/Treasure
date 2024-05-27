@@ -38,7 +38,7 @@ public class PlayerGrab : MonoBehaviour
             else if(Input.GetKeyDown(KeyCode.E) && Hand.childCount == 1)
             {
                 drop(item);
-                obj.ApplyForce(this.transform.forward * throwpower.value);
+                //obj.ApplyForce(this.transform.forward * throwpower.value);
                 Debug.Log(obj + "throw");
             }
         }

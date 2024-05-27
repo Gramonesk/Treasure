@@ -7,14 +7,24 @@ using TMPro;
 
 public class Player : NetworkBehaviour
 {
-    public Material _material;
-    [Networked] public bool spawnedProjectile { get; set; }
-    private ChangeDetector _changeDetector;
-    [Networked] private TickTimer delay { get; set; }
-    [SerializeField] private Ball _prefabBall;
-    [SerializeField] private PhysxBall _prefabPhysxBall;
+    [Header("Player Settings")]
+    public Transform hand;
+    public Transform detector;
+    public float distance;
+    public LayerMask layermask;
 
-    private Vector3 _forward = Vector3.forward;
+    public NetworkPrefabRef prefab;
+
+    private Material _material;
+    [HideInInspector][Networked] public bool spawnedProjectile { get; set; }
+    private ChangeDetector _changeDetector;
+    //[Networked] private TickTimer delay { get; set; }
+
+    private RaycastHit ray;
+    //[SerializeField] private Ball _prefabBall;
+    //[SerializeField] private PhysxBall _prefabPhysxBall;
+
+    //private Vector3 _forward = Vector3.forward;
     private NetworkCharacterController _cc;
 
     private TMP_Text _messages;
@@ -56,6 +66,7 @@ public class Player : NetworkBehaviour
         if (Object.HasInputAuthority && Input.GetKeyDown(KeyCode.R))
         {
             RPC_SendMessage("Hey Mate!");
+            Runner.Spawn(prefab, Vector3.up);
         }
     }
     public override void Render()
@@ -71,39 +82,70 @@ public class Player : NetworkBehaviour
         }
         _material.color = Color.Lerp(_material.color, Color.blue, Time.deltaTime);
     }
+    private NetworkObject item;
+    private Item obj;
     public override void FixedUpdateNetwork()
     {
         if (GetInput(out NetInput data))
         {
             data.direction.Normalize();
             _cc.Move(5 * data.direction * Runner.DeltaTime);
-            if (data.direction.sqrMagnitude > 0)
-                _forward = data.direction;
-            if (HasStateAuthority && delay.ExpiredOrNotRunning(Runner))
+            if (HasStateAuthority)
             {
-                //if (data.buttons.IsSet(InputButton.Left_Click))
-                //{
-                //    delay = TickTimer.CreateFromSeconds(Runner, 0.5f);
-                //    Runner.Spawn(_prefabBall,
-                //    transform.position + _forward, Quaternion.LookRotation(_forward),
-                //    Object.InputAuthority, (runner, o) =>
-                //    {
-                //        o.GetComponent<Ball>().Init();
-                //    });
-                //    spawnedProjectile = !spawnedProjectile;
-                //}
-                //else if(data.buttons.IsSet(InputButton.Right_Click))
-                //{
-                //    delay = TickTimer.CreateFromSeconds(Runner, 0.5f);
-                //    Runner.Spawn(_prefabPhysxBall,
-                //    transform.position + _forward, Quaternion.LookRotation(_forward),
-                //    Object.InputAuthority, (runner, o) =>
-                //    {
-                //        o.GetComponent<PhysxBall>().Init(10 * _forward);
-                //    });
-                //    spawnedProjectile = !spawnedProjectile;
-                //}
+                if (data.buttons.IsSet(InputButton.Left_Click))
+                {
+                    if (hand.transform.childCount == 1)
+                    {
+                        item.GetComponent<Rigidbody>().isKinematic = false;
+                        item.transform.parent = null;
+                        obj.OnDropped?.Invoke(obj);
+                        //obj.ApplyForce(this.transform.forward);
+                        spawnedProjectile = !spawnedProjectile;
+                    }
+                }
+                else if (data.buttons.IsSet(InputButton.Right_Click))
+                {
+                    if (hand.transform.childCount == 0)
+                    {
+                        if (Physics.BoxCast(transform.position, transform.localScale * 0.5f, detector.forward, out ray, transform.rotation, distance, layermask))
+                        {
+                            item = ray.collider.GetComponent<NetworkObject>();
+                            obj = item.GetComponent<Item>();
+                            if (obj == null) return;
+                            ray.collider.GetComponent<Rigidbody>().isKinematic = true;
+                            item.transform.parent = hand;
+                            item.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                            obj.OnPicked?.Invoke();
+                            spawnedProjectile = !spawnedProjectile;
+                        }
+                    }
+                }
             }
+            //if (HasStateAuthority && delay.ExpiredOrNotRunning(Runner))
+            //{
+            //    if (data.buttons.IsSet(InputButton.Left_Click))
+            //    {
+            //        delay = TickTimer.CreateFromSeconds(Runner, 0.5f);
+            //        Runner.Spawn(_prefabBall,
+            //        transform.position + _forward, Quaternion.LookRotation(_forward),
+            //        Object.InputAuthority, (runner, o) =>
+            //        {
+            //            o.GetComponent<Ball>().Init();
+            //        });
+            //        spawnedProjectile = !spawnedProjectile;
+            //    }
+            //    else if (data.buttons.IsSet(InputButton.Right_Click))
+            //    {
+            //        delay = TickTimer.CreateFromSeconds(Runner, 0.5f);
+            //        Runner.Spawn(_prefabPhysxBall,
+            //        transform.position + _forward, Quaternion.LookRotation(_forward),
+            //        Object.InputAuthority, (runner, o) =>
+            //        {
+            //            o.GetComponent<PhysxBall>().Init(10 * _forward);
+            //        });
+            //        spawnedProjectile = !spawnedProjectile;
+            //    }
+            //}
         }
     }
 }

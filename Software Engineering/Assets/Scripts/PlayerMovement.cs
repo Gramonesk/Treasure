@@ -124,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
         Item obj = hit.collider.GetComponent<Item>();
         if (obj != null)
         {
-            obj.ApplyForce(new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z) * pushPower.value * MoveSpeed.magnitude);
+            //obj.ApplyForce(new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z) * pushPower.value * MoveSpeed.magnitude);
         }
     }
 }

@@ -4,6 +4,7 @@ using Fusion.Sockets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -19,6 +20,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     Mouse mouse = Mouse.current;
     void IBeforeUpdate.BeforeUpdate()
     {
+        //Debug.Log("AKu Before Update");
         //if (resetInput)
         //{
         //    resetInput = false;
@@ -54,7 +56,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         //    accumulatedInput.direction += moveDirection;
         //    buttons.Set(InputButton.Jump, keyboard.spaceKey.isPressed);
         //}
-        //if(mouse != null)
+        //if (mouse != null)
         //{
         //    buttons.Set(InputButton.Left_Click, mouse.leftButton.isPressed);
         //    buttons.Set(InputButton.Right_Click, mouse.rightButton.isPressed);
@@ -66,7 +68,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     {
         // Create the Fusion runner and let it know that we will be providing user input
         _runner = gameObject.AddComponent<NetworkRunner>();
-        gameObject.AddComponent<RunnerSimulatePhysics3D>();
+        RunnerSimulatePhysics3D phys = gameObject.AddComponent<RunnerSimulatePhysics3D>();
+        phys.ClientPhysicsSimulation = ClientPhysicsSimulation.SimulateForward;
         _runner.ProvideInput = true;
 
         // Create the NetworkSceneInfo from the current scene
@@ -82,6 +85,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         {
             GameMode = mode,
             SessionName = "TestRoom",
+            //Address = NetAddress.Any
             Scene = scene,
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
         });
