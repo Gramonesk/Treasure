@@ -68,6 +68,10 @@ public class Player : NetworkBehaviour
         {
             nickname = PlayerPrefs.GetString("PlayerNickname");
             RPC_PlayerName(nickname);
+        } else
+        {
+            nickname = PlayerPrefs.GetString("PlayerNickname");
+            RPC_PlayerName(nickname);
         }
 
     }
