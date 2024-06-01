@@ -6,9 +6,14 @@ using UnityEngine.UI;
 public class RefreshButt : MonoBehaviour
 {
     private Button RefButton;
+    private BasicSpawner Spawn;
 
     private void Awake()
     {
+        if (RefButton == null)
+        {
+            RefButton = GetComponent<Button>();
+        }
         RefButton.onClick.AddListener(Refresh);
     }
 
@@ -20,7 +25,12 @@ public class RefreshButt : MonoBehaviour
     private IEnumerator RefreshWait()
     {
         RefButton.interactable = false;
-        yield return null;
+
+        BasicSpawner.instance.RefreshSessionListUI();
+        Debug.Log("Refresh ke 1");
+
+        yield return new WaitForSeconds(3f);
+        RefButton.interactable = true;
     }
 
 }

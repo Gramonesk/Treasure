@@ -176,7 +176,7 @@ public class Player : NetworkBehaviour
         playernickname.text = nickname.ToString();
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     private void RPC_PlayerName(string name)
     {
         nickname = name;

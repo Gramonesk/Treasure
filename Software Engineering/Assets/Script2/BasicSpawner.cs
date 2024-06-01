@@ -12,16 +12,17 @@ using UnityEngine.UI;
 
 public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdate
 {
-    public static BasicSpawner Instance;
+    public static BasicSpawner instance;
 
     private NetInput accumulatedInput;
     private bool resetInput;
-    private NetworkRunner _runner;
+    public NetworkRunner _runner;
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     //Keyboard keyboard = Keyboard.current;
 
     [Header("Session List")]
+    public GameObject RoomCanvas;
     private List<SessionInfo> _sessions = new List<SessionInfo>();
     public Button refreshButton;
     public Transform sessionListContent;
@@ -32,6 +33,13 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
 
     /*public PanelPrefabManager panelManager;*/
+
+    private void Awake()
+    {
+        if (instance == null) { instance = this; }
+
+    }
+
 
     void IBeforeUpdate.BeforeUpdate()
     {
@@ -82,7 +90,11 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     public async void StartGame(GameMode mode)
     {
         // Create the Fusion runner and let it know that we will be providing user input
-        _runner = gameObject.AddComponent<NetworkRunner>();
+        if (_runner == null)
+        {
+            _runner = gameObject.AddComponent<NetworkRunner>();
+        }
+        
         RunnerSimulatePhysics3D phys = gameObject.AddComponent<RunnerSimulatePhysics3D>();
         phys.ClientPhysicsSimulation = ClientPhysicsSimulation.SimulateForward;
         _runner.ProvideInput = true;
@@ -118,27 +130,43 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
                 StartGame(GameMode.Client);
             }
 
-           /* if (panelManager.isJoin == true)
-            {
-                StartGame(GameMode.Host);
-            }*/
+            /* if (panelManager.isJoin == true)
+             {
+                 StartGame(GameMode.Host);
+             }*/
 
         }
 
     }
 
+    public void joinSession()
+    {
+        StartGame(GameMode.Host);
+        RoomCanvas.SetActive(false);
+    }
+
+    void INetworkRunnerCallbacks.OnSessionListUpdated(NetworkRunner _runner, List<SessionInfo> sessionList)
+    {
+        _sessions.Clear();
+        _sessions = sessionList;
+        Debug.Log("Session Updated");
+    }
+
     public void RefreshSessionListUI()
     {
+        Debug.Log("refresh ke 2");
         // Clears Session List UI ( Biar gk ada clone )
-        foreach(Transform child in sessionListContent)
+        foreach (Transform child in sessionListContent)
         {
             Destroy(child.gameObject);
         }
 
-        foreach(SessionInfo session in _sessions)
+        foreach (SessionInfo session in _sessions)
         {
+            Debug.Log("Cekin");
             if (session.IsVisible)
             {
+                Debug.Log("sesi ada, refresh");
                 GameObject entry = GameObject.Instantiate(panelPrefab, sessionListContent);
                 PanelPrefabManager script = entry.GetComponent<PanelPrefabManager>();
                 script.roomName.text = entry.name;
@@ -147,20 +175,13 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
                 if (session.IsOpen == false || session.PlayerCount >= session.MaxPlayers)
                 {
                     script.joinButton.interactable = false;
-                } else
+                }
+                else
                 {
                     script.joinButton.interactable = true;
                 }
             }
         }
-    }
-
-
-    void INetworkRunnerCallbacks.OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
-    {
-        _sessions.Clear();
-        _sessions = sessionList;
-
     }
 
     void INetworkRunnerCallbacks.OnConnectedToServer(NetworkRunner runner)
