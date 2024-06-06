@@ -17,7 +17,7 @@ public class Player : NetworkBehaviour
 
     public NetworkPrefabRef prefab;
 
-    [Networked] public string nickname { get; set; }
+    [Networked] public NetworkString<_16> Nickname { get; set; }
 
     private Material _material;
     [HideInInspector][Networked] public bool spawnedProjectile { get; set; }
@@ -38,6 +38,23 @@ public class Player : NetworkBehaviour
     {
         RPC_RelayMessage(message, info.Source);
     }
+
+
+    private IEnumerator Start()
+    {
+        if (this.HasStateAuthority)
+        {
+            Nickname = BasicSpawner.instance._playername;
+        }
+
+        yield return new WaitUntil(() => this.isActiveAndEnabled);
+
+        yield return new WaitUntil(() => Nickname.ToString() != null);
+
+        playernickname.text = Nickname.ToString();
+
+    }
+
 
     [Rpc(RpcSources.StateAuthority, RpcTargets.All, HostMode = RpcHostMode.SourceIsServer)]
     public void RPC_RelayMessage(string message, PlayerRef messageSource)
@@ -64,15 +81,15 @@ public class Player : NetworkBehaviour
     public override void Spawned()
     {
         _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState);
-        if (HasInputAuthority)
+        /*if (HasInputAuthority)
         {
-            nickname = PlayerPrefs.GetString("PlayerNickname");
-            RPC_PlayerName(nickname);
+            Nickname = PlayerPrefs.GetString("PlayerNickname");
+            RPC_PlayerName(Nickname);
         } else
         {
-            nickname = PlayerPrefs.GetString("PlayerNickname");
-            RPC_PlayerName(nickname);
-        }
+            Nickname = PlayerPrefs.GetString("PlayerNickname");
+            RPC_PlayerName(Nickname);
+        }*/
 
     }
     private void Update()
@@ -166,23 +183,23 @@ public class Player : NetworkBehaviour
     }
 
 
-    static void OnNicknameChanged()
+/*    static void OnNicknameChanged()
     {
 
-    }
+    }*/
 
-    private void onNicknameChanged()
+    /*private void onNicknameChanged()
     {
-        playernickname.text = nickname.ToString();
+        playernickname.text = Nickname.ToString();
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     private void RPC_PlayerName(string name)
     {
-        nickname = name;
-        Debug.Log($"Nickname changed for to {nickname} with {name}");
+        Nickname = name;
+        Debug.Log($"Nickname changed for to {Nickname} with {name}");
         playernickname.text = name.ToString();
-    }
+    }*/
 
 
 

@@ -25,7 +25,7 @@ public class PanelPrefabManager : MonoBehaviour
     private void JoinSession()
     {
         /*isJoin = true;*/
-        BasicSpawner.instance.StartGame(Fusion.GameMode.Client);
+        BasicSpawner.instance.JoinSession(roomName.text);
     }
 
 

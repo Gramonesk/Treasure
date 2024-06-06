@@ -10,7 +10,8 @@ public class ButtonManager : MonoBehaviour
 
     void Start()
     {
-        inputField.text = PlayerPrefs.GetString("PlayerNickname");
+        /*inputField.text = PlayerPrefs.GetString("PlayerNickname");*/
+        /*BasicSpawner.instance.ConnectToRunner(inputField.text);*/
     }
 
     public void PlayScene(string name)
@@ -19,6 +20,12 @@ public class ButtonManager : MonoBehaviour
         PlayerPrefs.Save();
         SceneManager.LoadScene(name);
     }
+
+    public void SubmitName()
+    {
+        BasicSpawner.instance.ConnectToRunner(inputField.text);
+    }
+
 
     public void Exit()
     {

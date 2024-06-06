@@ -21,6 +21,13 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     //Keyboard keyboard = Keyboard.current;
 
+
+/*    [Header("Player Name")]
+    [Networked][OnChangedRender(nameof(OnNicknameChanged))]*//*
+    public string nickname { get; set; }*/
+    public string _playername = null;
+
+
     [Header("Session List")]
     public GameObject RoomCanvas;
     private List<SessionInfo> _sessions = new List<SessionInfo>();
@@ -40,6 +47,10 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     }
 
+    public void OnNicknameChanged()
+    {
+
+    }
 
     void IBeforeUpdate.BeforeUpdate()
     {
@@ -87,10 +98,26 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         //accumulatedInput.buttons = new NetworkButtons(accumulatedInput.buttons.Bits | buttons.Bits);
 
     }
-    public async void StartGame(GameMode mode)
+    public void ConnectToRunner(string nickname)
     {
+        if(_playername == null)
+        {
+            _playername = nickname;
+        }
+        if(_runner == null)
+        {
+            _runner = gameObject.GetComponent<NetworkRunner>();
+        }
+
+    }
+    
+
+    public async void CreateSession()
+    {
+        string _SessionName = "Room" + _playername;
+
         // Create the Fusion runner and let it know that we will be providing user input
-        if (_runner == null)
+        if (!_runner)
         {
             _runner = gameObject.AddComponent<NetworkRunner>();
         }
@@ -110,14 +137,46 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         // Start or join (depends on gamemode) a session with a specific name
         await _runner.StartGame(new StartGameArgs()
         {
-            GameMode = mode,
-            SessionName = "TestRoom",
+            GameMode = GameMode.Shared,
+            SessionName = _SessionName,
             //Address = NetAddress.Any
             Scene = scene,
-            SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
+            SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
+            PlayerCount = 4,
+        });
+
+    }
+
+    public async void JoinSession(string _SessionName)
+    {
+        if(_runner == null)
+        {
+            _runner= gameObject.AddComponent<NetworkRunner>();
+        }
+
+        RunnerSimulatePhysics3D phys = gameObject.AddComponent<RunnerSimulatePhysics3D>();
+        phys.ClientPhysicsSimulation = ClientPhysicsSimulation.SimulateForward;
+        _runner.ProvideInput = true;
+
+        // Create the NetworkSceneInfo from the current scene
+        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
+        var sceneInfo = new NetworkSceneInfo();
+        if (scene.IsValid)
+        {
+            sceneInfo.AddSceneRef(scene, LoadSceneMode.Additive);
+        }
+
+        await _runner.StartGame(new StartGameArgs()
+        {
+            GameMode = GameMode.Shared,
+            SessionName = _SessionName,
+            Scene = scene,
+            SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
         });
     }
-    private void OnGUI()
+
+
+/*    private void OnGUI()
     {
         if (_runner == null)
         {
@@ -130,26 +189,20 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
                 StartGame(GameMode.Client);
             }
 
-            /* if (panelManager.isJoin == true)
+            *//* if (panelManager.isJoin == true)
              {
                  StartGame(GameMode.Host);
-             }*/
+             }*//*
 
         }
 
-    }
-
-    public void joinSession()
-    {
-        StartGame(GameMode.Host);
-        RoomCanvas.SetActive(false);
-    }
+    }*/
 
     void INetworkRunnerCallbacks.OnSessionListUpdated(NetworkRunner _runner, List<SessionInfo> sessionList)
     {
         _sessions.Clear();
         _sessions = sessionList;
-        Debug.Log("Session Updated");
+        Debug.Log("Session List Updated");
     }
 
     public void RefreshSessionListUI()
