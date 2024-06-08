@@ -5,10 +5,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using static System.Collections.Specialized.BitVector32;
 
 public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdate
 {
@@ -21,22 +24,23 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     //Keyboard keyboard = Keyboard.current;
 
-
-/*    [Header("Player Name")]
-    [Networked][OnChangedRender(nameof(OnNicknameChanged))]*//*
-    public string nickname { get; set; }*/
     public string _playername = null;
-
+    public string lobbyName = "default";
 
     [Header("Session List")]
-    public GameObject RoomCanvas;
-    private List<SessionInfo> _sessions = new List<SessionInfo>();
-    public Button refreshButton;
+    public Dictionary<string, GameObject> sessionListUI = new Dictionary<string, GameObject>();
+/*    public Button refreshButton;*/
     public Transform sessionListContent;
     public GameObject panelPrefab;
-
+    public GameObject PanelCanvas;
 
     Mouse mouse = Mouse.current;
+
+    [Header("Name Input")]
+    public TMP_InputField nameinputfield;
+
+
+    /*public Button join;*/
 
 
     /*public PanelPrefabManager panelManager;*/
@@ -44,13 +48,102 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     private void Awake()
     {
         if (instance == null) { instance = this; }
+        _runner = gameObject.GetComponent<NetworkRunner>();
+        if (!_runner)
+        {
+            _runner = gameObject.AddComponent<NetworkRunner>();
+        }
 
+       
     }
-
-    public void OnNicknameChanged()
+    private void Start()
     {
+        _runner.JoinSessionLobby(SessionLobby.Shared, lobbyName);
+    }
+
+    void INetworkRunnerCallbacks.OnSessionListUpdated(NetworkRunner _runner, List<SessionInfo> sessionList)
+    {
+        Debug.Log("Session Updated");
+        DeleteOldSession(sessionList);
+
+        CompareList(sessionList);
 
     }
+
+    private void DeleteOldSession(List<SessionInfo> sessionList)
+    {
+        bool isContained = false;
+        GameObject uiToDelete = null;
+
+        foreach (KeyValuePair<string, GameObject> kvp in sessionListUI)
+        {
+            string sessionKey = kvp.Key;
+            
+            foreach (SessionInfo sessionInfo in sessionList)
+            {
+                if (sessionInfo.Name == sessionKey)
+                {
+                    Debug.Log("Tidak ada Sesi Yang Sama");
+                    isContained = true;
+                    break;
+                }
+                
+            }
+
+            if (!isContained)
+            {
+                uiToDelete = kvp.Value;
+                sessionListUI.Remove(sessionKey);
+                Destroy(uiToDelete);
+            }
+        }
+    }
+
+    private void CompareList(List<SessionInfo> sessionList)
+    {
+        foreach (SessionInfo session in sessionList)
+        {
+            if (sessionListUI.ContainsKey(session.Name))
+            {
+                UpdatePanelUI(session);
+            } else
+            {
+                CreatePanelUI(session);
+            }
+        }
+    }
+
+    private void UpdatePanelUI(SessionInfo session)
+    {
+        Debug.Log("UpdatedPanel");
+        sessionListUI.TryGetValue(session.Name, out GameObject newEntry);
+
+        PanelPrefabManager entryScript = newEntry.GetComponent<PanelPrefabManager>();
+
+        entryScript.SessionName.text = session.Name;
+        entryScript.playerCount.text = session.PlayerCount.ToString() + "/" + session.MaxPlayers.ToString();
+        entryScript.joinButton.interactable = session.IsOpen;
+
+        // Optional 
+        newEntry.SetActive(session.IsVisible);
+    }
+
+    private void CreatePanelUI(SessionInfo session)
+    {
+        Debug.Log("CreatedPanel");
+        GameObject newEntry = GameObject.Instantiate(panelPrefab);
+        newEntry.transform.parent = sessionListContent;
+        PanelPrefabManager entryScript = newEntry.GetComponent<PanelPrefabManager>();
+        sessionListUI.Add(session.Name, newEntry);
+
+        entryScript.SessionName.text = session.Name;
+        entryScript.playerCount.text = session.PlayerCount.ToString() + "/" + session.MaxPlayers.ToString();
+        entryScript.joinButton.interactable = session.IsOpen;
+
+        // Optional
+        newEntry.SetActive(session.IsVisible);
+    }
+
 
     void IBeforeUpdate.BeforeUpdate()
     {
@@ -98,23 +191,20 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         //accumulatedInput.buttons = new NetworkButtons(accumulatedInput.buttons.Bits | buttons.Bits);
 
     }
-    public void ConnectToRunner(string nickname)
+    public void RunnerName()
     {
-        if(_playername == null)
-        {
-            _playername = nickname;
-        }
-        if(_runner == null)
-        {
-            _runner = gameObject.GetComponent<NetworkRunner>();
-        }
+        Debug.Log("Name Input Terisi");
+        _playername = nameinputfield.text;
 
     }
     
 
     public async void CreateSession()
     {
-        string _SessionName = "Room" + _playername;
+        int randomInt = UnityEngine.Random.Range(100, 999);
+        string _SessionName = "Room" + randomInt;
+        Debug.Log(_SessionName);
+        Debug.Log(sessionListUI);
 
         // Create the Fusion runner and let it know that we will be providing user input
         if (!_runner)
@@ -137,6 +227,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         // Start or join (depends on gamemode) a session with a specific name
         await _runner.StartGame(new StartGameArgs()
         {
+            /*GameMode = GameMode.Host,*/
             GameMode = GameMode.Shared,
             SessionName = _SessionName,
             //Address = NetAddress.Any
@@ -149,6 +240,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     public async void JoinSession(string _SessionName)
     {
+        PanelCanvas.SetActive(false);
         if(_runner == null)
         {
             _runner= gameObject.AddComponent<NetworkRunner>();
@@ -189,23 +281,18 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
                 StartGame(GameMode.Client);
             }
 
-            *//* if (panelManager.isJoin == true)
+             if (panelManager.isJoin == true)
              {
                  StartGame(GameMode.Host);
-             }*//*
+             }
 
         }
 
     }*/
 
-    void INetworkRunnerCallbacks.OnSessionListUpdated(NetworkRunner _runner, List<SessionInfo> sessionList)
-    {
-        _sessions.Clear();
-        _sessions = sessionList;
-        Debug.Log("Session List Updated");
-    }
+    
 
-    public void RefreshSessionListUI()
+    /*public void RefreshSessionListUI()
     {
         Debug.Log("refresh ke 2");
         // Clears Session List UI ( Biar gk ada clone )
@@ -235,7 +322,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
                 }
             }
         }
-    }
+    }*/
 
     void INetworkRunnerCallbacks.OnConnectedToServer(NetworkRunner runner)
     {
@@ -306,6 +393,11 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             // Keep track of the player avatars for easy access
             _spawnedCharacters.Add(player, networkPlayerObject);
         }
+        if (player == _runner.LocalPlayer)
+        {
+            NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, Vector3.zero, Quaternion.identity, player);
+            _spawnedCharacters.Add(player, networkPlayerObject);
+        }
     }
 
     void INetworkRunnerCallbacks.OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -336,12 +428,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     void INetworkRunnerCallbacks.OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
-        Cursor.lockState = CursorLockMode.None;
+        /*Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         if (shutdownReason == ShutdownReason.DisconnectedByPluginLogic)
         {
-        }
+        }*/
     }
 
     void INetworkRunnerCallbacks.OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)

@@ -388,7 +388,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5255114700232515753}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5221832010216068051
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,10 +519,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673e63799cfb5944c9c853b92b21e7ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomName: {fileID: 6735073873996077832}
+  SessionName: {fileID: 6735073873996077832}
   playerCount: {fileID: 6505242409970360251}
   joinButton: {fileID: 8966453447068225986}
-  isJoin: 0
+  PanelCanvas: {fileID: 0}
 --- !u!1 &7349444287888819863
 GameObject:
   m_ObjectHideFlags: 0

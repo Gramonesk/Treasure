@@ -6,14 +6,18 @@ using UnityEngine.UI;
 
 public class PanelPrefabManager : MonoBehaviour
 {
-    public TextMeshProUGUI roomName;
+    public TextMeshProUGUI SessionName;
     public TextMeshProUGUI playerCount;
     public Button joinButton;
+    public GameObject PanelCanvas;
+    public static PanelPrefabManager Instance;
+
     /*public bool isJoin = false;*/
 
     private void Awake()
     {
         joinButton.onClick.AddListener(JoinSession);
+        if (Instance == null) { Instance = this; }
     }
 
     private void Start()
@@ -25,7 +29,9 @@ public class PanelPrefabManager : MonoBehaviour
     private void JoinSession()
     {
         /*isJoin = true;*/
-        BasicSpawner.instance.JoinSession(roomName.text);
+        BasicSpawner.instance.JoinSession(SessionName.text);
+        PanelCanvas.SetActive(false);
+
     }
 
 

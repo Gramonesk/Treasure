@@ -21,10 +21,10 @@ public class ButtonManager : MonoBehaviour
         SceneManager.LoadScene(name);
     }
 
-    public void SubmitName()
+/*    public void SubmitName()
     {
         BasicSpawner.instance.ConnectToRunner(inputField.text);
-    }
+    }*/
 
 
     public void Exit()

@@ -5,6 +5,8 @@ using Fusion;
 using Fusion.Addons.KCC;
 using TMPro;
 using static Fusion.NetworkBehaviour;
+using System;
+using Unity.VisualScripting;
 
 public class Player : NetworkBehaviour
 {
@@ -17,7 +19,10 @@ public class Player : NetworkBehaviour
 
     public NetworkPrefabRef prefab;
 
-    [Networked] public NetworkString<_16> Nickname { get; set; }
+
+    [Networked/*, OnChangedRender(nameof(UpdatePlayerName))*/] public NetworkString<_16> Nickname { get; set; }
+
+
 
     private Material _material;
     [HideInInspector][Networked] public bool spawnedProjectile { get; set; }
@@ -40,23 +45,16 @@ public class Player : NetworkBehaviour
     }
 
 
-    private IEnumerator Start()
+    private void Start()
     {
-        if (this.HasStateAuthority)
-        {
-            Nickname = BasicSpawner.instance._playername;
-        }
-
-        yield return new WaitUntil(() => this.isActiveAndEnabled);
-
-        yield return new WaitUntil(() => Nickname.ToString() != null);
-
-        playernickname.text = Nickname.ToString();
 
     }
 
 
     [Rpc(RpcSources.StateAuthority, RpcTargets.All, HostMode = RpcHostMode.SourceIsServer)]
+
+
+
     public void RPC_RelayMessage(string message, PlayerRef messageSource)
     {
         if (_messages == null)
@@ -91,6 +89,15 @@ public class Player : NetworkBehaviour
             RPC_PlayerName(Nickname);
         }*/
 
+        if (this.HasStateAuthority)
+        {
+            Debug.Log("PUNYA STATE AUTHORITY");
+            /*Nickname = BasicSpawner.instance._playername;*/
+            Nickname = Runner.GetComponent<BasicSpawner>()._playername;
+        }
+        Nickname = Runner.GetComponent<BasicSpawner>()._playername;
+        transform.gameObject.name = playernickname.text;
+
     }
     private void Update()
     {
@@ -99,6 +106,17 @@ public class Player : NetworkBehaviour
             RPC_SendMessage("Hey Mate!");
             Runner.Spawn(prefab, Vector3.up);
         }
+        foreach (var change in _changeDetector.DetectChanges(this))
+        {
+            switch (change)
+            {
+                case nameof(Nickname):
+                    playernickname.text = Nickname.ToString();
+                    transform.gameObject.name = playernickname.text;
+                    break;
+            }
+        }
+
     }
     public override void Render()
     {
@@ -108,6 +126,10 @@ public class Player : NetworkBehaviour
             {
                 case nameof(spawnedProjectile):
                     _material.color = Color.white;
+                    break;
+                case nameof(Nickname):
+                    playernickname.text = Nickname.ToString();
+                    transform.gameObject.name = playernickname.text;
                     break;
             }
         }

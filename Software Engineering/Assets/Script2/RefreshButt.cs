@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class RefreshButt : MonoBehaviour
 {
-    private Button RefButton;
+    /*private Button RefButton;
     private BasicSpawner Spawn;
 
     private void Awake()
@@ -31,6 +31,6 @@ public class RefreshButt : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
         RefButton.interactable = true;
-    }
+    }*/
 
 }
