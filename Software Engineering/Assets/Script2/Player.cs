@@ -22,7 +22,9 @@ public class Player : NetworkBehaviour
 
     [Networked/*, OnChangedRender(nameof(UpdatePlayerName))*/] public NetworkString<_16> Nickname { get; set; }
 
-
+    [Header("Player Ready")]
+    public bool _isReady = false;
+    [Networked] public int ReadyCount {  get; set; }
 
     private Material _material;
     [HideInInspector][Networked] public bool spawnedProjectile { get; set; }
@@ -47,7 +49,7 @@ public class Player : NetworkBehaviour
 
     private void Start()
     {
-
+        
     }
 
 
@@ -105,6 +107,7 @@ public class Player : NetworkBehaviour
         {
             RPC_SendMessage("Hey Mate!");
             Runner.Spawn(prefab, Vector3.up);
+
         }
         foreach (var change in _changeDetector.DetectChanges(this))
         {
@@ -116,6 +119,7 @@ public class Player : NetworkBehaviour
                     break;
             }
         }
+
 
     }
     public override void Render()

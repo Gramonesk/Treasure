@@ -155,6 +155,7 @@ MonoBehaviour:
   nameInput: {fileID: 1881175165}
   Submit: {fileID: 351892863}
   Playername: 
+  InputNameCanvas: {fileID: 0}
 --- !u!4 &16214057
 Transform:
   m_ObjectHideFlags: 0
@@ -862,7 +863,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 507265343}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1216503465}
+        m_TargetAssemblyTypeName: BasicSpawner, Assembly-CSharp
+        m_MethodName: ReturnToLobby
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &507265343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1387,6 +1400,7 @@ MonoBehaviour:
   nameInput: {fileID: 1881175165}
   Submit: {fileID: 351892863}
   Playername: 
+  InputNameCanvas: {fileID: 762270449}
 --- !u!1 &813615574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1893,6 +1907,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1043768932}
   m_CullTransparentMesh: 1
+--- !u!1 &1127188199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1127188201}
+  - component: {fileID: 1127188200}
+  m_Layer: 0
+  m_Name: '[ Wave Handler ]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1127188200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127188199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f632bd877a6f1984194193711533aa68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1127188201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127188199}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1149557642
 GameObject:
   m_ObjectHideFlags: 0
@@ -2030,12 +2088,13 @@ MonoBehaviour:
   _runner: {fileID: 0}
   _playerPrefab:
     RawGuidValue: d42f381fceb0b4a499a334858d93d905
-  _playername: 
   lobbyName: default
   sessionListContent: {fileID: 612731434}
   panelPrefab: {fileID: 5221832010216068051, guid: 20f7edde101ac7d42af6a4cc7e3b077c, type: 3}
   PanelCanvas: {fileID: 1577022315}
+  NameCanvas: {fileID: 762270449}
   nameinputfield: {fileID: 1881175165}
+  _playername: 
 --- !u!4 &1216503466
 Transform:
   m_ObjectHideFlags: 0
@@ -4122,3 +4181,4 @@ SceneRoots:
   - {fileID: 666868555}
   - {fileID: 4829721704094665228}
   - {fileID: 16214057}
+  - {fileID: 1127188201}

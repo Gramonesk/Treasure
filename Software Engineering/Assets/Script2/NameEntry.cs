@@ -11,9 +11,11 @@ public class NameEntry : MonoBehaviour
     [SerializeField] Button Submit;
 
     public string Playername = null;
+    public GameObject InputNameCanvas;
 
     public void Awake()
     {
+/*        InputNameCanvas.SetActive(true);*/
         Submit.interactable = false;
     }
 

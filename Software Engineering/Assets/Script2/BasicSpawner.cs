@@ -24,11 +24,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     //Keyboard keyboard = Keyboard.current;
 
-    public string _playername = null;
+    
     public string lobbyName = "default";
 
-    [Header("Session List")]
+    
     public Dictionary<string, GameObject> sessionListUI = new Dictionary<string, GameObject>();
+    [Header("Session List")]
 /*    public Button refreshButton;*/
     public Transform sessionListContent;
     public GameObject panelPrefab;
@@ -37,8 +38,9 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     Mouse mouse = Mouse.current;
 
     [Header("Name Input")]
+    public GameObject NameCanvas;
     public TMP_InputField nameinputfield;
-
+    public string _playername = null;
 
     /*public Button join;*/
 
@@ -59,6 +61,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     private void Start()
     {
         _runner.JoinSessionLobby(SessionLobby.Shared, lobbyName);
+        NameCanvas.SetActive(true);
     }
 
     void INetworkRunnerCallbacks.OnSessionListUpdated(NetworkRunner _runner, List<SessionInfo> sessionList)
@@ -143,6 +146,13 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         // Optional
         newEntry.SetActive(session.IsVisible);
     }
+
+    public void ReturnToLobby()
+    {
+        Debug.Log("ReturnToLobby");
+        _runner.Shutdown(true, ShutdownReason.Ok);
+    }
+
 
 
     void IBeforeUpdate.BeforeUpdate()
@@ -268,7 +278,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     }
 
 
-/*    private void OnGUI()
+    /*private void OnGUI()
     {
         if (_runner == null)
         {
@@ -428,12 +438,14 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     void INetworkRunnerCallbacks.OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
+        Debug.Log("ShutDown");
         /*Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         if (shutdownReason == ShutdownReason.DisconnectedByPluginLogic)
         {
         }*/
+        NameCanvas.SetActive(true);
     }
 
     void INetworkRunnerCallbacks.OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)
