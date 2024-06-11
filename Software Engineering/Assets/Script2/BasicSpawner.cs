@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -19,13 +20,14 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     private NetInput accumulatedInput;
     private bool resetInput;
-    public NetworkRunner _runner;
+    public static NetworkRunner _runner;
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     //Keyboard keyboard = Keyboard.current;
 
     
     public string lobbyName = "default";
+    [Networked]public int playerCountNow { get;set; }
 
     
     public Dictionary<string, GameObject> sessionListUI = new Dictionary<string, GameObject>();
@@ -42,6 +44,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     public TMP_InputField nameinputfield;
     public string _playername = null;
 
+    [Header("Game Scene")]
+    public SceneAsset GameScene;
+
+    // [Header("MainMenu Scene")]
+    // public SceneAsset LobbyScene;
+
     /*public Button join;*/
 
 
@@ -50,7 +58,9 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     private void Awake()
     {
         if (instance == null) { instance = this; }
+
         _runner = gameObject.GetComponent<NetworkRunner>();
+
         if (!_runner)
         {
             _runner = gameObject.AddComponent<NetworkRunner>();
@@ -61,7 +71,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     private void Start()
     {
         _runner.JoinSessionLobby(SessionLobby.Shared, lobbyName);
-        NameCanvas.SetActive(true);
+        /*NameCanvas.SetActive(true);*/
     }
 
     void INetworkRunnerCallbacks.OnSessionListUpdated(NetworkRunner _runner, List<SessionInfo> sessionList)
@@ -126,6 +136,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         entryScript.SessionName.text = session.Name;
         entryScript.playerCount.text = session.PlayerCount.ToString() + "/" + session.MaxPlayers.ToString();
         entryScript.joinButton.interactable = session.IsOpen;
+        playerCountNow = session.PlayerCount;
 
         // Optional 
         newEntry.SetActive(session.IsVisible);
@@ -142,18 +153,23 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         entryScript.SessionName.text = session.Name;
         entryScript.playerCount.text = session.PlayerCount.ToString() + "/" + session.MaxPlayers.ToString();
         entryScript.joinButton.interactable = session.IsOpen;
+        playerCountNow = session.PlayerCount;
 
         // Optional
         newEntry.SetActive(session.IsVisible);
     }
 
-    public void ReturnToLobby()
+    public static void ReturnToLobby()
     {
         Debug.Log("ReturnToLobby");
-        _runner.Shutdown(true, ShutdownReason.Ok);
+
+        BasicSpawner._runner.Shutdown(true, ShutdownReason.Ok);
     }
 
-
+    public int ReturnPlayerCount(SessionInfo session)
+    {
+        return session.PlayerCount;
+    }
 
     void IBeforeUpdate.BeforeUpdate()
     {
@@ -208,6 +224,23 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     }
     
+    public int GetSceneIndex(string SceneName)
+    {
+        // Loop Through all scenes in the build Settings
+        for (int i = 0; i <SceneManager.sceneCountInBuildSettings; i++)
+        {
+            // Get The Scene Path
+            string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+            // Extract the Name of the scene from the path
+            string name = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+            // Check if the names match
+            if (name == SceneName)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     public async void CreateSession()
     {
@@ -215,6 +248,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         string _SessionName = "Room" + randomInt;
         Debug.Log(_SessionName);
         Debug.Log(sessionListUI);
+
 
         // Create the Fusion runner and let it know that we will be providing user input
         if (!_runner)
@@ -227,7 +261,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         _runner.ProvideInput = true;
 
         // Create the NetworkSceneInfo from the current scene
-        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
+        /*var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);*/
+        var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
@@ -261,7 +296,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         _runner.ProvideInput = true;
 
         // Create the NetworkSceneInfo from the current scene
-        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
+        /*var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);*/
+        var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
@@ -445,7 +481,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         if (shutdownReason == ShutdownReason.DisconnectedByPluginLogic)
         {
         }*/
-        NameCanvas.SetActive(true);
+        /*NameCanvas.SetActive(true);*/
+        /*SceneManager.LoadScene(LobbyScene.name);*/
     }
 
     void INetworkRunnerCallbacks.OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)

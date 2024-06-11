@@ -105,14 +105,33 @@ public class Player : NetworkBehaviour
     {
         if (Object.HasInputAuthority && Input.GetKeyDown(KeyCode.R))
         {
-            RPC_SendMessage("Hey Mate!");
-            Runner.Spawn(prefab, Vector3.up);
+            /*RPC_SendMessage("Im Ready!");*/
+            Debug.Log(BasicSpawner.instance.playerCountNow);
+            /*Runner.Spawn(prefab, Vector3.up);*/
+            _isReady = !_isReady;
+            if (_isReady)
+            {
+                Debug.Log("Aku Ready");
+                ReadyCount++;
+                Debug.Log(ReadyCount);
 
+            }else
+            {
+                Debug.Log("Aku Tidak Ready");
+                ReadyCount--;
+                Debug.Log(ReadyCount);
+            }
         }
         foreach (var change in _changeDetector.DetectChanges(this))
         {
             switch (change)
             {
+                case nameof(ReadyCount):
+                    if (ReadyCount == BasicSpawner.instance.playerCountNow)
+                    {
+                        Debug.Log("Ready Semua");
+                    }
+                    break;
                 case nameof(Nickname):
                     playernickname.text = Nickname.ToString();
                     transform.gameObject.name = playernickname.text;
@@ -134,6 +153,12 @@ public class Player : NetworkBehaviour
                 case nameof(Nickname):
                     playernickname.text = Nickname.ToString();
                     transform.gameObject.name = playernickname.text;
+                    break;
+                case nameof(ReadyCount):
+                    if (ReadyCount == BasicSpawner.instance.playerCountNow)
+                    {
+                        Debug.Log("Ready Semua");
+                    }
                     break;
             }
         }
