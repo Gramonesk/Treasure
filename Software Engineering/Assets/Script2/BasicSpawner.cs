@@ -5,19 +5,208 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using static System.Collections.Specialized.BitVector32;
+
+# if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdate
 {
+    public static BasicSpawner instance;
+
+    /*NetworkSceneManagerDefault networkSceneManager;*/
+
+
     private NetInput accumulatedInput;
     private bool resetInput;
-    private NetworkRunner _runner;
+    public static NetworkRunner _runner;
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     //Keyboard keyboard = Keyboard.current;
+
+    
+/*    void addScene()
+    {
+        networkSceneManager.
+    }*/
+
+    public interface INetworkSceneManager
+    {
+
+    }
+
+    public string lobbyName = "default";
+    [Networked]public int playerCountNow { get;set; }
+
+    
+    public Dictionary<string, GameObject> sessionListUI = new Dictionary<string, GameObject>();
+    [Header("Session List")]
+/*  public Button refreshButton;*/
+    public Transform sessionListContent;
+    public GameObject panelPrefab;
+    public GameObject PanelCanvas;
+
     Mouse mouse = Mouse.current;
+
+    [Header("Name Input")]
+    public GameObject NameCanvas;
+    public TMP_InputField nameinputfield;
+    public string _playername = null;
+
+
+    // Ini Gak bisa di Build karena pakai namespace Unity.Editor
+    [Header("Game Scene")]
+    public SceneAsset GameScene;
+    public string SceneMultiplier;
+
+    // [Header("MainMenu Scene")]
+    // public SceneAsset LobbyScene;
+
+    /*public Button join;*/
+
+
+    /*public PanelPrefabManager panelManager;*/
+
+    private void Awake()
+    {
+        if (instance == null) { instance = this; }
+
+        _runner = gameObject.GetComponent<NetworkRunner>();
+
+        if (!_runner)
+        {
+            _runner = gameObject.AddComponent<NetworkRunner>();
+        }
+
+        DontDestroyOnLoad(_runner);
+
+    }
+
+    private void Start()
+    {
+        _runner.JoinSessionLobby(SessionLobby.Shared, lobbyName);
+
+        /*var sceneManager = _runner.GetComponent<INetworkSceneManager>();*/
+
+    }
+
+    private void TryGetSceneRef(out SceneRef sceneRef)
+    {
+        var activeScene = SceneManager.GetActiveScene();
+        if (activeScene.buildIndex < 0 || activeScene.buildIndex >= SceneManager.sceneCountInBuildSettings)
+        {
+            sceneRef = default;
+        }
+        else
+        {
+            sceneRef = SceneRef.FromIndex(activeScene.buildIndex);
+        }
+    }
+
+    void INetworkRunnerCallbacks.OnSessionListUpdated(NetworkRunner _runner, List<SessionInfo> sessionList)
+    {
+        Debug.Log("Session Updated");
+        DeleteOldSession(sessionList);
+
+        CompareList(sessionList);
+
+    }
+
+    private void DeleteOldSession(List<SessionInfo> sessionList)
+    {
+        bool isContained = false;
+        GameObject uiToDelete = null;
+
+        foreach (KeyValuePair<string, GameObject> kvp in sessionListUI)
+        {
+            string sessionKey = kvp.Key;
+            
+            foreach (SessionInfo sessionInfo in sessionList)
+            {
+                if (sessionInfo.Name == sessionKey)
+                {
+                    Debug.Log("Tidak ada Sesi Yang Sama");
+                    isContained = true;
+                    break;
+                }
+                
+            }
+
+            if (!isContained)
+            {
+                uiToDelete = kvp.Value;
+                sessionListUI.Remove(sessionKey);
+                Destroy(uiToDelete);
+            }
+        }
+    }
+
+    private void CompareList(List<SessionInfo> sessionList)
+    {
+        foreach (SessionInfo session in sessionList)
+        {
+            if (sessionListUI.ContainsKey(session.Name))
+            {
+                UpdatePanelUI(session);
+            } else
+            {
+                CreatePanelUI(session);
+            }
+        }
+    }
+
+    private void UpdatePanelUI(SessionInfo session)
+    {
+        Debug.Log("UpdatedPanel");
+        sessionListUI.TryGetValue(session.Name, out GameObject newEntry);
+
+        PanelPrefabManager entryScript = newEntry.GetComponent<PanelPrefabManager>();
+
+        entryScript.SessionName.text = session.Name;
+        entryScript.playerCount.text = session.PlayerCount.ToString() + "/" + session.MaxPlayers.ToString();
+        entryScript.joinButton.interactable = session.IsOpen;
+        playerCountNow = session.PlayerCount;
+
+        // Optional 
+        newEntry.SetActive(session.IsVisible);
+    }
+
+    private void CreatePanelUI(SessionInfo session)
+    {
+        Debug.Log("CreatedPanel");
+        GameObject newEntry = GameObject.Instantiate(panelPrefab);
+        newEntry.transform.parent = sessionListContent;
+        PanelPrefabManager entryScript = newEntry.GetComponent<PanelPrefabManager>();
+        sessionListUI.Add(session.Name, newEntry);
+
+        entryScript.SessionName.text = session.Name;
+        entryScript.playerCount.text = session.PlayerCount.ToString() + "/" + session.MaxPlayers.ToString();
+        entryScript.joinButton.interactable = session.IsOpen;
+        playerCountNow = session.PlayerCount;
+
+        // Optional
+        newEntry.SetActive(session.IsVisible);
+    }
+
+    public static void ReturnToLobby()
+    {
+        Debug.Log("ReturnToLobby");
+
+        BasicSpawner._runner.Shutdown(true, ShutdownReason.Ok);
+    }
+
+    public int ReturnPlayerCount(SessionInfo session)
+    {
+        return session.PlayerCount;
+    }
+
     void IBeforeUpdate.BeforeUpdate()
     {
         //Debug.Log("AKu Before Update");
@@ -64,16 +253,54 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         //accumulatedInput.buttons = new NetworkButtons(accumulatedInput.buttons.Bits | buttons.Bits);
 
     }
-    async void StartGame(GameMode mode)
+    public void RunnerName()
     {
+        Debug.Log("Name Input Terisi");
+        _playername = nameinputfield.text;
+
+    }
+
+    public int GetSceneIndex(string SceneName)
+    {
+        // Loop Through all scenes in the build Settings
+        for (int i = 0; i <SceneManager.sceneCountInBuildSettings; i++)
+        {
+            // Get The Scene Path
+            string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+            // Extract the Name of the scene from the path
+            string name = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+            // Check if the names match
+            if (name == SceneName)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public async void CreateSession()
+    {
+        int randomInt = UnityEngine.Random.Range(100, 999);
+        string _SessionName = "Room" + randomInt;
+        Debug.Log(_SessionName);
+        Debug.Log(sessionListUI);
+
+
         // Create the Fusion runner and let it know that we will be providing user input
-        _runner = gameObject.AddComponent<NetworkRunner>();
+        if (!_runner)
+        {
+            _runner = gameObject.AddComponent<NetworkRunner>();
+        }
+        
+        
         RunnerSimulatePhysics3D phys = gameObject.AddComponent<RunnerSimulatePhysics3D>();
         phys.ClientPhysicsSimulation = ClientPhysicsSimulation.SimulateForward;
         _runner.ProvideInput = true;
 
         // Create the NetworkSceneInfo from the current scene
-        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
+        /*var scene = SceneRef.FromIndex(1);*/
+        /*var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);*/
+        var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
@@ -83,14 +310,49 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         // Start or join (depends on gamemode) a session with a specific name
         await _runner.StartGame(new StartGameArgs()
         {
-            GameMode = mode,
-            SessionName = "TestRoom",
+            /*GameMode = GameMode.Host,*/
+            GameMode = GameMode.Shared,
+            SessionName = _SessionName,
             //Address = NetAddress.Any
             Scene = scene,
-            SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
+            SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
+            PlayerCount = 4,
+        });
+
+    }
+
+    public async void JoinSession(string _SessionName)
+    {
+        PanelCanvas.SetActive(false);
+        if(_runner == null)
+        {
+            _runner= gameObject.AddComponent<NetworkRunner>();
+        }
+
+        RunnerSimulatePhysics3D phys = gameObject.AddComponent<RunnerSimulatePhysics3D>();
+        phys.ClientPhysicsSimulation = ClientPhysicsSimulation.SimulateForward;
+        _runner.ProvideInput = true;
+
+        // Create the NetworkSceneInfo from the current scene
+        /*var scene = SceneRef.FromIndex(1);*/
+        /*var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);*/
+        var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));
+        var sceneInfo = new NetworkSceneInfo();
+        if (scene.IsValid)
+        {
+            sceneInfo.AddSceneRef(scene, LoadSceneMode.Additive);
+        }
+
+        await _runner.StartGame(new StartGameArgs()
+        {
+            GameMode = GameMode.Shared,
+            Scene = scene,
+            SessionName = _SessionName,
+            SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
         });
     }
-    private void OnGUI()
+
+    /*private void OnGUI()
     {
         if (_runner == null)
         {
@@ -102,8 +364,49 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             {
                 StartGame(GameMode.Client);
             }
+
+             if (panelManager.isJoin == true)
+             {
+                 StartGame(GameMode.Host);
+             }
+
         }
-    }
+
+    }*/
+
+    
+
+    /*public void RefreshSessionListUI()
+    {
+        Debug.Log("refresh ke 2");
+        // Clears Session List UI ( Biar gk ada clone )
+        foreach (Transform child in sessionListContent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (SessionInfo session in _sessions)
+        {
+            Debug.Log("Cekin");
+            if (session.IsVisible)
+            {
+                Debug.Log("sesi ada, refresh");
+                GameObject entry = GameObject.Instantiate(panelPrefab, sessionListContent);
+                PanelPrefabManager script = entry.GetComponent<PanelPrefabManager>();
+                script.roomName.text = entry.name;
+                script.playerCount.text = session.PlayerCount + "/" + session.MaxPlayers;
+
+                if (session.IsOpen == false || session.PlayerCount >= session.MaxPlayers)
+                {
+                    script.joinButton.interactable = false;
+                }
+                else
+                {
+                    script.joinButton.interactable = true;
+                }
+            }
+        }
+    }*/
 
     void INetworkRunnerCallbacks.OnConnectedToServer(NetworkRunner runner)
     {
@@ -166,6 +469,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     void INetworkRunnerCallbacks.OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
+        Debug.Log("Player Joined");
         if (runner.IsServer)
         {
             // Create a unique position for the player
@@ -174,6 +478,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             // Keep track of the player avatars for easy access
             _spawnedCharacters.Add(player, networkPlayerObject);
         }
+        if (player == _runner.LocalPlayer)
+        {
+            NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, Vector3.zero, Quaternion.identity, player);
+            _spawnedCharacters.Add(player, networkPlayerObject);
+        }
+
     }
 
     void INetworkRunnerCallbacks.OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -201,23 +511,29 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     {
     }
 
-    void INetworkRunnerCallbacks.OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
-    {
-    }
 
     void INetworkRunnerCallbacks.OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
-        Cursor.lockState = CursorLockMode.None;
+        Debug.Log("ShutDown");
+        /*Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         if (shutdownReason == ShutdownReason.DisconnectedByPluginLogic)
         {
-        }
+        }*/
+        /*NameCanvas.SetActive(true);*/
+        /*SceneManager.LoadScene(LobbyScene.name);*/
     }
 
     void INetworkRunnerCallbacks.OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)
     {
     }
+
+    public void LoadTheScene(string name)
+    {
+        SceneManager.LoadScene(name);
+    }
+
 
 
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 using Fusion;
 using Fusion.Addons.KCC;
 using TMPro;
+using static Fusion.NetworkBehaviour;
+using System;
+using Unity.VisualScripting;
 
 public class Player : NetworkBehaviour
 {
@@ -12,8 +15,16 @@ public class Player : NetworkBehaviour
     public Transform detector;
     public float distance;
     public LayerMask layermask;
+    public TextMeshProUGUI playernickname;
 
     public NetworkPrefabRef prefab;
+
+
+    [Networked/*, OnChangedRender(nameof(UpdatePlayerName))*/] public NetworkString<_16> Nickname { get; set; }
+
+    [Header("Player Ready")]
+    public bool _isReady = false;
+    [Networked] public int ReadyCount {  get; set; }
 
     private Material _material;
     [HideInInspector][Networked] public bool spawnedProjectile { get; set; }
@@ -35,7 +46,17 @@ public class Player : NetworkBehaviour
         RPC_RelayMessage(message, info.Source);
     }
 
+
+    private void Start()
+    {
+        
+    }
+
+
     [Rpc(RpcSources.StateAuthority, RpcTargets.All, HostMode = RpcHostMode.SourceIsServer)]
+
+
+
     public void RPC_RelayMessage(string message, PlayerRef messageSource)
     {
         if (_messages == null)
@@ -60,14 +81,65 @@ public class Player : NetworkBehaviour
     public override void Spawned()
     {
         _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState);
+        /*if (HasInputAuthority)
+        {
+            Nickname = PlayerPrefs.GetString("PlayerNickname");
+            RPC_PlayerName(Nickname);
+        } else
+        {
+            Nickname = PlayerPrefs.GetString("PlayerNickname");
+            RPC_PlayerName(Nickname);
+        }*/
+
+        if (this.HasStateAuthority)
+        {
+            Debug.Log("PUNYA STATE AUTHORITY");
+            /*Nickname = BasicSpawner.instance._playername;*/
+            Nickname = Runner.GetComponent<BasicSpawner>()._playername;
+        }
+        Nickname = Runner.GetComponent<BasicSpawner>()._playername;
+        transform.gameObject.name = playernickname.text;
+
     }
     private void Update()
     {
         if (Object.HasInputAuthority && Input.GetKeyDown(KeyCode.R))
         {
-            RPC_SendMessage("Hey Mate!");
-            Runner.Spawn(prefab, Vector3.up);
+            /*RPC_SendMessage("Im Ready!");*/
+            Debug.Log(BasicSpawner.instance.playerCountNow);
+            /*Runner.Spawn(prefab, Vector3.up);*/
+            _isReady = !_isReady;
+            if (_isReady)
+            {
+                Debug.Log("Aku Ready");
+                ReadyCount++;
+                Debug.Log(ReadyCount);
+
+            }else
+            {
+                Debug.Log("Aku Tidak Ready");
+                ReadyCount--;
+                Debug.Log(ReadyCount);
+            }
         }
+        foreach (var change in _changeDetector.DetectChanges(this))
+        {
+            switch (change)
+            {
+                case nameof(ReadyCount):
+                    if (ReadyCount == BasicSpawner.instance.playerCountNow)
+                    {
+                        Debug.Log("Ready Semua");
+                    }
+                    break;
+                case nameof(Nickname):
+                    playernickname.text = Nickname.ToString();
+                    transform.gameObject.name = playernickname.text;
+                    break;
+            }
+        }
+
+
     }
     public override void Render()
     {
@@ -78,10 +150,22 @@ public class Player : NetworkBehaviour
                 case nameof(spawnedProjectile):
                     _material.color = Color.white;
                     break;
+                case nameof(Nickname):
+                    playernickname.text = Nickname.ToString();
+                    transform.gameObject.name = playernickname.text;
+                    break;
+                case nameof(ReadyCount):
+                    if (ReadyCount == BasicSpawner.instance.playerCountNow)
+                    {
+                        Debug.Log("Ready Semua");
+                    }
+                    break;
             }
         }
         _material.color = Color.Lerp(_material.color, Color.blue, Time.deltaTime);
     }
+
+
     private NetworkObject item;
     private Item obj;
     public override void FixedUpdateNetwork()
@@ -148,4 +232,26 @@ public class Player : NetworkBehaviour
             //}
         }
     }
+
+
+/*    static void OnNicknameChanged()
+    {
+
+    }*/
+
+    /*private void onNicknameChanged()
+    {
+        playernickname.text = Nickname.ToString();
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    private void RPC_PlayerName(string name)
+    {
+        Nickname = name;
+        Debug.Log($"Nickname changed for to {Nickname} with {name}");
+        playernickname.text = name.ToString();
+    }*/
+
+
+
 }
