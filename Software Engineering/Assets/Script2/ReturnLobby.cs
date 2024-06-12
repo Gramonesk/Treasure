@@ -9,7 +9,7 @@ public class ReturnLobby : MonoBehaviour
     {
         BasicSpawner.ReturnToLobby();
     }
-    public void returnScene(string name)
+    public void LoadTheScene(string name)
     {
         SceneManager.LoadScene(name);
     }

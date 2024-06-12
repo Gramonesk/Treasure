@@ -18,6 +18,9 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 {
     public static BasicSpawner instance;
 
+    /*NetworkSceneManagerDefault networkSceneManager;*/
+
+
     private NetInput accumulatedInput;
     private bool resetInput;
     public static NetworkRunner _runner;
@@ -26,6 +29,18 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     //Keyboard keyboard = Keyboard.current;
 
     
+/*    void addScene()
+    {
+        networkSceneManager.
+    }*/
+
+    public interface INetworkSceneManager
+    {
+
+
+
+    }
+
     public string lobbyName = "default";
     [Networked]public int playerCountNow { get;set; }
 
@@ -44,8 +59,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     public TMP_InputField nameinputfield;
     public string _playername = null;
 
-    [Header("Game Scene")]
-    public SceneAsset GameScene;
+    /*[Header("Game Scene")]*/
+    /*public SceneAsset GameScene;*/
 
     // [Header("MainMenu Scene")]
     // public SceneAsset LobbyScene;
@@ -66,12 +81,29 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             _runner = gameObject.AddComponent<NetworkRunner>();
         }
 
-       
+
     }
+
+
     private void Start()
     {
         _runner.JoinSessionLobby(SessionLobby.Shared, lobbyName);
-        /*NameCanvas.SetActive(true);*/
+
+        /*var sceneManager = _runner.GetComponent<INetworkSceneManager>();*/
+
+    }
+
+    private void TryGetSceneRef(out SceneRef sceneRef)
+    {
+        var activeScene = SceneManager.GetActiveScene();
+        if (activeScene.buildIndex < 0 || activeScene.buildIndex >= SceneManager.sceneCountInBuildSettings)
+        {
+            sceneRef = default;
+        }
+        else
+        {
+            sceneRef = SceneRef.FromIndex(activeScene.buildIndex);
+        }
     }
 
     void INetworkRunnerCallbacks.OnSessionListUpdated(NetworkRunner _runner, List<SessionInfo> sessionList)
@@ -224,6 +256,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     }
     
+    
+
     public int GetSceneIndex(string SceneName)
     {
         // Loop Through all scenes in the build Settings
@@ -256,13 +290,14 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             _runner = gameObject.AddComponent<NetworkRunner>();
         }
         
+        
         RunnerSimulatePhysics3D phys = gameObject.AddComponent<RunnerSimulatePhysics3D>();
         phys.ClientPhysicsSimulation = ClientPhysicsSimulation.SimulateForward;
         _runner.ProvideInput = true;
-
+        var scene = SceneRef.FromIndex(1);
         // Create the NetworkSceneInfo from the current scene
         /*var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);*/
-        var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));
+        // var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
@@ -296,8 +331,9 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         _runner.ProvideInput = true;
 
         // Create the NetworkSceneInfo from the current scene
+        var scene = SceneRef.FromIndex(1);
         /*var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);*/
-        var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));
+        /*var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));*/
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
@@ -307,8 +343,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         await _runner.StartGame(new StartGameArgs()
         {
             GameMode = GameMode.Shared,
-            SessionName = _SessionName,
             Scene = scene,
+            SessionName = _SessionName,
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
         });
     }
@@ -431,6 +467,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     void INetworkRunnerCallbacks.OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
+        Debug.Log("Player Joined");
         if (runner.IsServer)
         {
             // Create a unique position for the player
@@ -444,6 +481,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, Vector3.zero, Quaternion.identity, player);
             _spawnedCharacters.Add(player, networkPlayerObject);
         }
+
     }
 
     void INetworkRunnerCallbacks.OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -488,6 +526,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     void INetworkRunnerCallbacks.OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)
     {
     }
+
+    public void LoadTheScene(string name)
+    {
+        SceneManager.LoadScene(name);
+    }
+
 
 
 }
