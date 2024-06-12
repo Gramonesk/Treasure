@@ -6,13 +6,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static System.Collections.Specialized.BitVector32;
+
+# if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdate
 {
@@ -37,8 +40,6 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     public interface INetworkSceneManager
     {
 
-
-
     }
 
     public string lobbyName = "default";
@@ -47,7 +48,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     
     public Dictionary<string, GameObject> sessionListUI = new Dictionary<string, GameObject>();
     [Header("Session List")]
-/*    public Button refreshButton;*/
+/*  public Button refreshButton;*/
     public Transform sessionListContent;
     public GameObject panelPrefab;
     public GameObject PanelCanvas;
@@ -59,8 +60,11 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     public TMP_InputField nameinputfield;
     public string _playername = null;
 
-    /*[Header("Game Scene")]*/
-    /*public SceneAsset GameScene;*/
+
+    // Ini Gak bisa di Build karena pakai namespace Unity.Editor
+    [Header("Game Scene")]
+    public SceneAsset GameScene;
+    public string SceneMultiplier;
 
     // [Header("MainMenu Scene")]
     // public SceneAsset LobbyScene;
@@ -81,9 +85,9 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             _runner = gameObject.AddComponent<NetworkRunner>();
         }
 
+        DontDestroyOnLoad(_runner);
 
     }
-
 
     private void Start()
     {
@@ -255,8 +259,6 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         _playername = nameinputfield.text;
 
     }
-    
-    
 
     public int GetSceneIndex(string SceneName)
     {
@@ -294,10 +296,11 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         RunnerSimulatePhysics3D phys = gameObject.AddComponent<RunnerSimulatePhysics3D>();
         phys.ClientPhysicsSimulation = ClientPhysicsSimulation.SimulateForward;
         _runner.ProvideInput = true;
-        var scene = SceneRef.FromIndex(1);
+
         // Create the NetworkSceneInfo from the current scene
+        /*var scene = SceneRef.FromIndex(1);*/
         /*var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);*/
-        // var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));
+        var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
@@ -331,9 +334,9 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         _runner.ProvideInput = true;
 
         // Create the NetworkSceneInfo from the current scene
-        var scene = SceneRef.FromIndex(1);
+        /*var scene = SceneRef.FromIndex(1);*/
         /*var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);*/
-        /*var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));*/
+        var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
@@ -348,7 +351,6 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
         });
     }
-
 
     /*private void OnGUI()
     {
