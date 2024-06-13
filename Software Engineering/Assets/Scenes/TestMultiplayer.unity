@@ -818,7 +818,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125.9, y: -57.9}
+  m_AnchoredPosition: {x: 125.900024, y: -57.899994}
   m_SizeDelta: {x: 154.9, y: 67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &507265342
@@ -1609,6 +1609,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!1 &994318455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 994318457}
+  - component: {fileID: 994318456}
+  m_Layer: 0
+  m_Name: '[ Panel Player Handler ]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &994318456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994318455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acd0432b433ecc447a1161413f74491c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelPlayer: {fileID: 1998985055}
+  PanelPlayerPrefab: {fileID: 5771514305510360979, guid: 54ae478911a0f2641994b57ab824dfa6, type: 3}
+--- !u!4 &994318457
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994318455}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1677.5436, y: 712.014, z: -512.0631}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1011991250
 GameObject:
   m_ObjectHideFlags: 0
@@ -1657,10 +1703,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1678,7 +1724,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1978600915}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -2121,7 +2167,7 @@ MonoBehaviour:
   nameinputfield: {fileID: 1881175165}
   _playername: 
   GameScene: {fileID: 0}
-  LobbyScene: {fileID: 0}
+  SceneMultiplier: 
 --- !u!4 &1216503466
 Transform:
   m_ObjectHideFlags: 0
@@ -3915,6 +3961,7 @@ GameObject:
   - component: {fileID: 1998985055}
   - component: {fileID: 1998985057}
   - component: {fileID: 1998985056}
+  - component: {fileID: 1998985058}
   m_Layer: 5
   m_Name: Panel Player
   m_TagString: Untagged
@@ -3938,8 +3985,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -175, y: 122.88}
-  m_SizeDelta: {x: 350, y: 500}
+  m_AnchoredPosition: {x: -225, y: 121.8}
+  m_SizeDelta: {x: 450, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1998985056
 MonoBehaviour:
@@ -3979,6 +4026,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998985054}
   m_CullTransparentMesh: 1
+--- !u!114 &1998985058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998985054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 1
+  m_Spacing: 2
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &2023224108
 GameObject:
   m_ObjectHideFlags: 0
@@ -4320,3 +4393,4 @@ SceneRoots:
   - {fileID: 4829721704094665228}
   - {fileID: 16214057}
   - {fileID: 1127188201}
+  - {fileID: 994318457}

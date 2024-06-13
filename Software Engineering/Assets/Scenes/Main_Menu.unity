@@ -1951,7 +1951,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -3997,6 +3997,7 @@ MonoBehaviour:
   nameinputfield: {fileID: 781087717}
   _playername: 
   GameScene: {fileID: 102900000, guid: 8af91b93d7d3a4843a3f492d285176ee, type: 3}
+  SceneMultiplier: 
 --- !u!1 &1098919884
 GameObject:
   m_ObjectHideFlags: 0
@@ -6531,7 +6532,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 46.689, y: 0}
+  m_AnchoredPosition: {x: 46.688995, y: 0}
   m_SizeDelta: {x: 137.87, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1882607020
@@ -6816,7 +6817,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -51.104996, y: -51.104996}
+  m_AnchoredPosition: {x: -51.10501, y: -51.104996}
   m_SizeDelta: {x: 102.20999, y: 102.20999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1967842613

@@ -106,7 +106,7 @@ public class Player : NetworkBehaviour
         if (Object.HasInputAuthority && Input.GetKeyDown(KeyCode.R))
         {
             /*RPC_SendMessage("Im Ready!");*/
-            Debug.Log(BasicSpawner.instance.playerCountNow);
+            Debug.Log(BasicSpawner.playerCountNow);
             /*Runner.Spawn(prefab, Vector3.up);*/
             _isReady = !_isReady;
             if (_isReady)
@@ -127,7 +127,7 @@ public class Player : NetworkBehaviour
             switch (change)
             {
                 case nameof(ReadyCount):
-                    if (ReadyCount == BasicSpawner.instance.playerCountNow)
+                    if (ReadyCount == BasicSpawner.playerCountNow)
                     {
                         Debug.Log("Ready Semua");
                     }
@@ -155,7 +155,7 @@ public class Player : NetworkBehaviour
                     transform.gameObject.name = playernickname.text;
                     break;
                 case nameof(ReadyCount):
-                    if (ReadyCount == BasicSpawner.instance.playerCountNow)
+                    if (ReadyCount == BasicSpawner.playerCountNow)
                     {
                         Debug.Log("Ready Semua");
                     }
