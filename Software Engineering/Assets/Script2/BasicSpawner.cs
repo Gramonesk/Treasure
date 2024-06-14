@@ -360,7 +360,11 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         });
     }
 
-    
+    /*public void StartTheWave()
+    {
+        WaveHandler wave = GameObject.FindObjectOfType<WaveHandler>().GetComponent<WaveHandler>();
+        wave.StartTimer(_runner);
+    }*/
 
     /*private void OnGUI()
     {
@@ -496,7 +500,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         playerCountNow++;
         Debug.Log(playerCountNow);
 
-        PanelPlayerHandler panelPHand = GetComponent<PanelPlayerHandler>();
+        PanelPlayerHandler panelPHand = GameObject.FindObjectOfType<PanelPlayerHandler>().GetComponent<PanelPlayerHandler>();
         panelPHand.UpdatePlayerPanel();
 
     }

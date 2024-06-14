@@ -10,6 +10,9 @@ using Unity.VisualScripting;
 
 public class Player : NetworkBehaviour
 {
+    public static Player Instance; 
+
+
     [Header("Player Settings")]
     public Transform hand;
     public Transform detector;
@@ -25,6 +28,8 @@ public class Player : NetworkBehaviour
     [Header("Player Ready")]
     public bool _isReady = false;
     [Networked] public int ReadyCount {  get; set; }
+
+    public bool allReady = false;
 
     private Material _material;
     [HideInInspector][Networked] public bool spawnedProjectile { get; set; }
@@ -44,6 +49,11 @@ public class Player : NetworkBehaviour
     public void RPC_SendMessage(string message, RpcInfo info = default)
     {
         RPC_RelayMessage(message, info.Source);
+    }
+
+    public void awake()
+    {
+        if (Instance == null) Instance = this;
     }
 
 
@@ -100,6 +110,13 @@ public class Player : NetworkBehaviour
         Nickname = Runner.GetComponent<BasicSpawner>()._playername;
         transform.gameObject.name = playernickname.text;
 
+
+        if(this.HasStateAuthority && allReady == true)
+        {
+            WaveHandler wave = GameObject.FindObjectOfType<WaveHandler>().GetComponent<WaveHandler>();
+            wave.StartTimer();
+        }
+
     }
     private void Update()
     {
@@ -130,6 +147,13 @@ public class Player : NetworkBehaviour
                     if (ReadyCount == BasicSpawner.playerCountNow)
                     {
                         Debug.Log("Ready Semua");
+                        /*BasicSpawner basicSpawner = GameObject.FindObjectOfType<BasicSpawner>().GetComponent<BasicSpawner>();*/
+                        /*basicSpawner.StartTheWave();*/
+                        WaveHandler wave = GameObject.FindObjectOfType<WaveHandler>().GetComponent<WaveHandler>();
+                        wave.StartTimer();
+                        allReady = true; 
+                        break;
+
                     }
                     break;
                 case nameof(Nickname):

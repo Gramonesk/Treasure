@@ -4,37 +4,28 @@ using UnityEngine;
 
 public class PanelPlayerHandler : MonoBehaviour
 {
-    BasicSpawner spawner;
-
-    public static PanelPlayerHandler instance;
-
     [Header("MainMenu Scene")]
-    public static Transform panelPlayer;
-    public static GameObject PanelPlayerPrefab;
-
-    public void Awake()
-    {
-        if (instance == null) instance = this;
-    }
+    public Transform panelPlayer;
+    public GameObject PanelPrefab;
 
     public void Start()
     {
-        if (instance == null) instance = this;
-        spawner = GetComponent<BasicSpawner>();
     }
 
     public void UpdatePlayerPanel()
     {
-        GameObject newEntry = GameObject.Instantiate(PanelPlayerPrefab);
+        GameObject newEntry = GameObject.Instantiate(PanelPrefab);
         newEntry.transform.parent = panelPlayer;
 
-        PanelPlayerPrefab entryPlayer = GetComponent<PanelPlayerPrefab>();
-        entryPlayer.PlayerName.text = spawner._playername.ToString();
+        PanelPlayerPrefab entryName = newEntry.GetComponent<PanelPlayerPrefab>();
+
+        BasicSpawner player = GameObject.FindObjectOfType<BasicSpawner>().GetComponent<BasicSpawner>();
+        entryName.PlayerName.text = player._playername.ToString();
     }
     public void DeletePlayerPanel()
     {
 
-        Destroy(PanelPlayerPrefab);
+        /*Destroy(PanelPlayerPrefab);*/
         /*GameObject newEntry = GameObject.Destroy(PanelPlayerPrefab);*/
 
     }
