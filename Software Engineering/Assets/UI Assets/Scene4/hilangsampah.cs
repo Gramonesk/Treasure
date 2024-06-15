@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class hilangsampah : MonoBehaviour
 {
+    public static ConveyorBelt yes;
     void Update()
     {
         //Invoke("ded", 20);
@@ -11,6 +12,7 @@ public class hilangsampah : MonoBehaviour
 
     private void ded()
     {
+        yes.onBelt.Remove(this.gameObject);
         Destroy(gameObject);
     }
 

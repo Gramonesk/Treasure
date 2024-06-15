@@ -11,7 +11,7 @@ public class ConveyorBelt : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        hilangsampah.yes = this;
     }
 
     // Update is called once per frame
