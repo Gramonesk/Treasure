@@ -43,7 +43,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     }
 
     public string lobbyName = "default";
-    [Networked]public int playerCountNow { get;set; }
+    [Networked]public static int playerCountNow { get;set; }
 
     
     public Dictionary<string, GameObject> sessionListUI = new Dictionary<string, GameObject>();
@@ -66,8 +66,15 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     public SceneAsset GameScene;
     public string SceneMultiplier;
 
-    // [Header("MainMenu Scene")]
+   /* [Header("MainMenu Scene")]
+    public Transform panelPlayer;
+    public GameObject PanelPlayerPrefab;*/
+
     // public SceneAsset LobbyScene;
+
+
+
+
 
     /*public Button join;*/
 
@@ -121,11 +128,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     private void DeleteOldSession(List<SessionInfo> sessionList)
     {
-        bool isContained = false;
+        /*bool isContained = false;*/
         GameObject uiToDelete = null;
 
         foreach (KeyValuePair<string, GameObject> kvp in sessionListUI)
         {
+            bool isContained = false;
             string sessionKey = kvp.Key;
             
             foreach (SessionInfo sessionInfo in sessionList)
@@ -352,6 +360,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         });
     }
 
+    public void StartTheWave()
+    {
+        WaveHandler wave = GameObject.FindObjectOfType<WaveHandler>().GetComponent<WaveHandler>();
+        wave.StartTimer();
+    }
+
     /*private void OnGUI()
     {
         if (_runner == null)
@@ -374,7 +388,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     }*/
 
-    
+
 
     /*public void RefreshSessionListUI()
     {
@@ -483,6 +497,11 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, Vector3.zero, Quaternion.identity, player);
             _spawnedCharacters.Add(player, networkPlayerObject);
         }
+        playerCountNow++;
+        Debug.Log(playerCountNow);
+
+        PanelPlayerHandler panelPHand = GameObject.FindObjectOfType<PanelPlayerHandler>().GetComponent<PanelPlayerHandler>();
+        panelPHand.UpdatePlayerPanel();
 
     }
 
@@ -493,6 +512,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             runner.Despawn(networkObject);
             _spawnedCharacters.Remove(player);
         }
+        playerCountNow--;
     }
 
     void INetworkRunnerCallbacks.OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress)
@@ -510,7 +530,6 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     void INetworkRunnerCallbacks.OnSceneLoadStart(NetworkRunner runner)
     {
     }
-
 
     void INetworkRunnerCallbacks.OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
