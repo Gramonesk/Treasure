@@ -286,6 +286,13 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         return -1;
     }
 
+
+    public void startCreateSession()
+    {
+        Invoke("CreateSession", 5f);
+    }
+
+
     public async void CreateSession()
     {
         int randomInt = UnityEngine.Random.Range(100, 999);

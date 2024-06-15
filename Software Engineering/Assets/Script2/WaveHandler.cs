@@ -20,6 +20,7 @@ public class WaveHandler : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
+       
         if (timer.Expired(Runner))
         {
             // Execute Logic
