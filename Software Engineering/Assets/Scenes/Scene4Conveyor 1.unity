@@ -6147,7 +6147,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1892090068}
         m_TargetAssemblyTypeName: BasicSpawner, Assembly-CSharp
-        m_MethodName: CreateSession
+        m_MethodName: startCreateSession
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
