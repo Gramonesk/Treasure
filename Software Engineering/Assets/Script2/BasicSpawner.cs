@@ -360,11 +360,11 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         });
     }
 
-    /*public void StartTheWave()
+    public void StartTheWave()
     {
         WaveHandler wave = GameObject.FindObjectOfType<WaveHandler>().GetComponent<WaveHandler>();
-        wave.StartTimer(_runner);
-    }*/
+        wave.StartTimer();
+    }
 
     /*private void OnGUI()
     {
