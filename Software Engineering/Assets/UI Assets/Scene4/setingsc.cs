@@ -12,6 +12,7 @@ public class setingsc : MonoBehaviour
     private bool isopen;
     public GameObject Panel;
     public GameObject nungguon;
+    public Button button;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class setingsc : MonoBehaviour
         {
             animator.SetBool("openseting", true);
             panelanim.SetBool("PANELup", true);
+            button.enabled = false;
             isopen = true;
         }
 
@@ -32,6 +34,7 @@ public class setingsc : MonoBehaviour
         {
             animator.SetBool("openseting", false);
             panelanim.SetBool("PANELup", false);
+            button.enabled = true;
             isopen = false;
         }
     }

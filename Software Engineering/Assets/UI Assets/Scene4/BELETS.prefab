@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 24799209380298546}
   - component: {fileID: 4500042648568654192}
   - component: {fileID: 5750418048074699245}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BELETS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
