@@ -41,7 +41,6 @@ public class WaveHandler : MonoBehaviour
         
     }
 
-
     public void UpdateTimerUI(int timeleft)
     {
 
