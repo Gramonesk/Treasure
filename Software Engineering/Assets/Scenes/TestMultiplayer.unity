@@ -2214,6 +2214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeUI: {fileID: 57957623}
+  GameTime: 300
+  TimeStart: 0
 --- !u!4 &1127188201
 Transform:
   m_ObjectHideFlags: 0
