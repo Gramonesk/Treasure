@@ -147,12 +147,12 @@ public class Player : NetworkBehaviour
                     if (ReadyCount == BasicSpawner.playerCountNow)
                     {
                         Debug.Log("Ready Semua");
-                        BasicSpawner basicSpawner = GameObject.FindObjectOfType<BasicSpawner>().GetComponent<BasicSpawner>();
-                        basicSpawner.StartTheWave();
-                        /*WaveHandler wave = GameObject.FindObjectOfType<WaveHandler>().GetComponent<WaveHandler>();
+                        /*BasicSpawner basicSpawner = GameObject.FindObjectOfType<BasicSpawner>().GetComponent<BasicSpawner>();
+                        basicSpawner.StartTheWave();*/
+                        WaveHandler wave = GameObject.FindObjectOfType<WaveHandler>().GetComponent<WaveHandler>();
                         wave.StartTimer();
-                        allReady = true; 
-                        break;*/
+                        allReady = true;
+                        break;
 
                     }
                     break;
