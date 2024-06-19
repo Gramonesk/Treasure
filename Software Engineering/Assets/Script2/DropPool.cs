@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
 using UnityEngine.Pool;
+using Fusion;
 
-public class DropPool : MonoBehaviour
+public class DropPool : NetworkBehaviour
 {
-    [System.Serializable]
+    /*[System.Serializable]
     public class pool
     {
         public string tag;
         public GameObject prefab;
         public int limit;
-    }
+    }*/
 
     #region Instance
     public static DropPool Instance;
@@ -24,13 +25,18 @@ public class DropPool : MonoBehaviour
 
     #endregion
 
-    public List<pool> pools;
-    public Dictionary<string, Queue<GameObject>> PoolDick;
-    /*public PooledObject<>*/
+    /*public List<pool> pools;
+    public Dictionary<string, Queue<GameObject>> PoolDick;*/
+
+    [SerializeField] private Item prefab;
+    [SerializeField] private Transform placeHolder;
+
+
+    public ObjectPool<Item> ItemPool;
 
     public void Start()
     {
-        PoolDick = new Dictionary<string, Queue<GameObject>>();
+        /*PoolDick = new Dictionary<string, Queue<GameObject>>();
         
         foreach (pool pool in pools)
         {
@@ -46,11 +52,13 @@ public class DropPool : MonoBehaviour
             PoolDick.Add(pool.tag, queue);
 
 
-        }
+        }*/
+
+        ItemPool = new ObjectPool<Item>(CreateObj, null, ReturnToPool, null, false, 20, 100);
 
     }
 
-    public GameObject SpawnTrash(string tag, Vector3 position , Quaternion rotation)
+    /*public GameObject SpawnTrash(string tag, Vector3 position , Quaternion rotation)
     {
 
         if (PoolDick.ContainsKey(tag))
@@ -68,11 +76,21 @@ public class DropPool : MonoBehaviour
         PoolDick[tag].Enqueue(objectSpawn);
 
         return objectSpawn;
+    }*/
+
+
+    private Item CreateObj()
+    {
+        var item = Instantiate(prefab, placeHolder);
+        Runner.Spawn(prefab);
+        
+        return item;
     }
 
-
-
-
+    private void ReturnToPool(Item prefab)
+    {
+        prefab.gameObject.SetActive(false);
+    }
 
 
 
