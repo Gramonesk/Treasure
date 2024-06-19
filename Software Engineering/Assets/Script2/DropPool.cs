@@ -92,7 +92,10 @@ public class DropPool : NetworkBehaviour
         prefab.gameObject.SetActive(false);
     }
 
+    public void SpawnItem()
+    {
 
+    }
 
 
 
