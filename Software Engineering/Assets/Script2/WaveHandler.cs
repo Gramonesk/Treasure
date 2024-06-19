@@ -1,5 +1,4 @@
 using Fusion;
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,19 +8,19 @@ public class WaveHandler : MonoBehaviour
 {
     public TextMeshProUGUI TimeUI;
 
-    [Networked] public TickTimer timer { get;set; }
+    [Networked] public TickTimer timer { get; set; }
 
     public int GameTime;
     public int TimeStart;
-    [Networked] public int GameTimeLeft {  get; set; }
+    [Networked] public int GameTimeLeft { get; set; }
 
 
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
 
     public void StartTimer()
     {
-            StopCoroutine(UpdateTimer());
-            StartCoroutine(UpdateTimer());
+        StopCoroutine(UpdateTimer());
+        StartCoroutine(UpdateTimer());
 
     }
     public IEnumerator UpdateTimer()
@@ -38,7 +37,7 @@ public class WaveHandler : MonoBehaviour
             UpdateTimerUI(GameTimeLeft);
 
         }
-        
+
     }
 
     public void UpdateTimerUI(int timeleft)
@@ -48,7 +47,7 @@ public class WaveHandler : MonoBehaviour
 
     }
 
-    
+
 
 
 

@@ -122,6 +122,8 @@ public class Player : NetworkBehaviour
     {
         if (Object.HasInputAuthority && Input.GetKeyDown(KeyCode.R))
         {
+            PanelPlayerHandler panel = GameObject.FindObjectOfType<PanelPlayerHandler>().GetComponent<PanelPlayerHandler>();
+            panel.UpdatePlayerStatus();
             /*RPC_SendMessage("Im Ready!");*/
             Debug.Log(BasicSpawner.playerCountNow);
             /*Runner.Spawn(prefab, Vector3.up);*/
@@ -132,7 +134,8 @@ public class Player : NetworkBehaviour
                 ReadyCount++;
                 Debug.Log(ReadyCount);
 
-            }else
+            }
+            else
             {
                 Debug.Log("Aku Tidak Ready");
                 ReadyCount--;

@@ -126,6 +126,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     }
 
+    #region Create & Update List Session UI
+
     private void DeleteOldSession(List<SessionInfo> sessionList)
     {
         /*bool isContained = false;*/
@@ -202,6 +204,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         // Optional
         newEntry.SetActive(session.IsVisible);
     }
+
+    #endregion
 
     public static void ReturnToLobby()
     {
@@ -367,11 +371,11 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         });
     }
 
-    public void StartTheWave()
+    /*public void StartTheWave()
     {
         WaveHandler wave = GameObject.FindObjectOfType<WaveHandler>().GetComponent<WaveHandler>();
         wave.StartTimer();
-    }
+    }*/
 
     /*private void OnGUI()
     {
