@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 227970424113638839}
   - component: {fileID: 5274176931642973023}
   - component: {fileID: 1049647374393047313}
-  - component: {fileID: 4882503648603691019}
+  - component: {fileID: 339031379296419653}
   - component: {fileID: 3473517309919783399}
   - component: {fileID: 9170561933647539010}
   m_Layer: 3
@@ -86,7 +86,7 @@ MonoBehaviour:
     Position: 0.01
     Rotation: 0.01
     Scale: 0.01
---- !u!114 &4882503648603691019
+--- !u!114 &339031379296419653
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,17 +95,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1105910698073950632}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0748909000ad5274189dd058af2aeea6, type: 3}
+  m_Script: {fileID: 11500000, guid: 130db5a3501dd5f44bc31b36fbb9fe6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemStates:
-  - state: 0
-    mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
-    material: {fileID: -3033667219593020291, guid: 28a56bf973dcc1749b500bff9b38b985, type: 3}
-  - state: 1
-    mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
-    material: {fileID: 2100000, guid: ab1d0b64b7593304f9c25e945fb92a13, type: 2}
-  mat: {fileID: 4068726857550190216}
+  ItemStates: []
+  mat: {fileID: 0}
 --- !u!114 &3473517309919783399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +118,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 1049647374393047313}
-  - {fileID: 4882503648603691019}
+  - {fileID: 339031379296419653}
   - {fileID: 1807254412740201089}
 --- !u!65 &9170561933647539010
 BoxCollider:

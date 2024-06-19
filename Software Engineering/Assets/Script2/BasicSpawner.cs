@@ -126,6 +126,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     }
 
+    #region Create & Update List Session UI
+
     private void DeleteOldSession(List<SessionInfo> sessionList)
     {
         /*bool isContained = false;*/
@@ -202,6 +204,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         // Optional
         newEntry.SetActive(session.IsVisible);
     }
+
+    #endregion
 
     public static void ReturnToLobby()
     {
