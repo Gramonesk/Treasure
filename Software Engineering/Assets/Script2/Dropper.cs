@@ -12,10 +12,10 @@ public class Dropper : MonoBehaviour
     }
 
 
-    public void DropTrash()
+    /*public void DropTrash()
     {
       drop.SpawnTrash("Raw", transform.position, Quaternion.identity);
-    }
+    }*/
 
 
 
