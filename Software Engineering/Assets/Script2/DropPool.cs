@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
-
+using UnityEngine.Pool;
 
 public class DropPool : MonoBehaviour
 {
@@ -26,6 +26,7 @@ public class DropPool : MonoBehaviour
 
     public List<pool> pools;
     public Dictionary<string, Queue<GameObject>> PoolDick;
+    /*public PooledObject<>*/
 
     public void Start()
     {
