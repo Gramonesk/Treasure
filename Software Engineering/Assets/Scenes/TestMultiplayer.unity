@@ -2996,6 +2996,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1583437164}
   - component: {fileID: 1583437165}
+  - component: {fileID: 1583437166}
   m_Layer: 0
   m_Name: '[ Item Dropper ]'
   m_TagString: Untagged
@@ -3030,10 +3031,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2952b1c5394b85244878e6492c6669ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pools:
-  - tag: Raw
-    prefab: {fileID: 1105910698073950632, guid: 7604d0cc8a01e844c9c1633691e5215d, type: 3}
-    limit: 3
+  prefab: {fileID: 0}
+  placeHolder: {fileID: 0}
+--- !u!114 &1583437166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583437163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 1610803879
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 1583437165}
 --- !u!1 &1603907298
 GameObject:
   m_ObjectHideFlags: 0

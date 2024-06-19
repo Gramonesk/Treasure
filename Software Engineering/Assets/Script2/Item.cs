@@ -23,6 +23,10 @@ public class Item : NetworkBehaviour
 
     public Dictionary<TrashState, State> statemap = new Dictionary<TrashState, State>();
 
+    /*public delegate void OnDisableCallback(Item Instance);
+    public OnDisableCallback onDisable;*/
+
+
     public Action OnPicked;
     public Action<Item> OnDropped;
     //[Networked] private MeshRenderer mrender { get; set; }
