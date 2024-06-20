@@ -7,6 +7,7 @@ using Fusion;
 
 public class DropPool : NetworkBehaviour
 {
+
     /*[System.Serializable]
     public class pool
     {
@@ -24,6 +25,9 @@ public class DropPool : NetworkBehaviour
     }
 
     #endregion
+
+
+
 
     /*public List<pool> pools;
     public Dictionary<string, Queue<GameObject>> PoolDick;*/
@@ -54,7 +58,7 @@ public class DropPool : NetworkBehaviour
 
         }*/
 
-        ItemPool = new ObjectPool<Item>(CreateObj, null, ReturnToPool, null, false, 20, 100);
+        /*ItemPool = new ObjectPool<Item>(CreateObj, TakeObj, ReturnToPool, null, false, 20, 100);*/
 
     }
 
@@ -79,20 +83,29 @@ public class DropPool : NetworkBehaviour
     }*/
 
 
-    private Item CreateObj()
+    private void CreateObj()
     {
-        var item = Instantiate(prefab, placeHolder);
-        Runner.Spawn(prefab);
-        
-        return item;
+        // var item = Instantiate(prefab, placeHolder); // Biasa
+        var itemNetwork = Runner.Spawn(prefab); // Runner
+
     }
 
-    private void ReturnToPool(Item prefab)
+    /*private void TakeObj(Item prefab)
+    {
+        SpawnItem(prefab);
+        prefab.gameObject.SetActive(true);
+    }
+*/
+
+    /*private void ReturnToPool(Item prefab)
     {
         prefab.gameObject.SetActive(false);
     }
 
+    public void SpawnItem(Item Prefab)
+    {
 
+    }*/
 
 
 

@@ -22,12 +22,15 @@ public class Player : NetworkBehaviour
 
     public NetworkPrefabRef prefab;
 
-
     [Networked/*, OnChangedRender(nameof(UpdatePlayerName))*/] public NetworkString<_16> Nickname { get; set; }
 
     [Header("Player Ready")]
     public bool _isReady = false;
+
     [Networked] public int ReadyCount {  get; set; }
+    [Networked] public TickTimer CountDown {  get; set; }
+
+
 
     public bool allReady = false;
 
@@ -35,6 +38,7 @@ public class Player : NetworkBehaviour
     [HideInInspector][Networked] public bool spawnedProjectile { get; set; }
     private ChangeDetector _changeDetector;
     //[Networked] private TickTimer delay { get; set; }
+    
 
     private RaycastHit ray;
     //[SerializeField] private Ball _prefabBall;
@@ -258,6 +262,14 @@ public class Player : NetworkBehaviour
             //    }
             //}
         }
+    }
+
+
+    public void CountDownStart()
+    {
+        CountDown = TickTimer.CreateFromSeconds(Runner, 5f);
+
+
     }
 
 
