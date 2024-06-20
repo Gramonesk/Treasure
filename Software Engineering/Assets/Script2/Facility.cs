@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public enum TrashState{
     raw,
     crushed,
@@ -27,9 +28,11 @@ public class Facility : NetworkBehaviour
     [Header("====================================================================")]
 
     [Header("Main Settings")]
-    public List<Convertion> convertions;
+    //public List<Convertion> convertions;
+    public Convertion Convertion;
     public bool UseInteractables;
     public bool CanGrabOnProcess;
+
     [Networked] private TickTimer delay { get; set; }
     //[Networked] private Action action { get; set; }
 
@@ -42,24 +45,17 @@ public class Facility : NetworkBehaviour
     }
     public void StartProcess()
     {
-        if (convertions.Count > index)
-        {
-            delay = TickTimer.CreateFromSeconds(Runner, convertions[index].Duration);
-            action = Process;
-        }
-        else
-        {
-            StopProcess();
-        }
+        delay = TickTimer.CreateFromSeconds(Runner, Convertion.Duration);
+        action = Process;
     }
     public void Process()
     {
         if (delay.ExpiredOrNotRunning(Runner))
         {
             action = null;
-            item.RPC_ChangeTo(convertions[index].ChangeTo);
+            item.RPC_ChangeTo(Convertion.ChangeTo);
             index++;
-            StartProcess(); // alias nextProcess
+            StopProcess();
         }
     }
     public void StopProcess()
@@ -85,8 +81,12 @@ public class Facility : NetworkBehaviour
         //ntar isi pake highlight (ini pake networked)
         if (!UseInteractables && item == null)
         {
-            Debug.Log("I can be activated");
-            obj.OnDropped = Initiate;
+            if (Convertion.FromState.Contains(obj.Current_State) && obj.statemap.ContainsKey(Convertion.ChangeTo))
+            {
+                Debug.Log("I can be activated");
+                obj.OnDropped = Initiate;
+            }
+            
         }
     }
     private void OnTriggerExit(Collider other)

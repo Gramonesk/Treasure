@@ -6,12 +6,9 @@ using UnityEngine;
 
 public class PanelPlayerPrefab : MonoBehaviour
 {
-    /*[Networked] public TextMeshProUGUI PlayerName { get;set; }*/
-    public TextMeshProUGUI PlayerName;
-    /*[Networked] public TextMeshProUGUI ReadyStatus {  get; set; }*/
-    public TextMeshProUGUI ReadyStatus;
-
-
-
+    public TextMeshProUGUI PlayerName_;
+    public TextMeshProUGUI ReadyStatus_;
+    [Networked] public TextMeshProUGUI PlayerName { get => PlayerName_; set => PlayerName_ = value; }
+    [Networked] public TextMeshProUGUI ReadyStatus {  get => ReadyStatus_; set => ReadyStatus_ = value; }
 
 }

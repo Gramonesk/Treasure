@@ -23,6 +23,9 @@ public class Item : NetworkBehaviour
 
     public Dictionary<TrashState, State> statemap = new Dictionary<TrashState, State>();
 
+    /*public List<State> CurrentState;*/
+    public TrashState Current_State;
+
     /*public delegate void OnDisableCallback(Item Instance);
     public OnDisableCallback onDisable;*/
 
@@ -41,8 +44,9 @@ public class Item : NetworkBehaviour
         {
             statemap.Add(s.state, s);
         }
-        mfilter.mesh = ItemStates[0].mesh;
-        mrender.material = ItemStates[0].material;
+        Current_State = TrashState.raw;
+        RPC_ChangeTo(Current_State);
+
     }
     [Rpc(RpcSources.All, RpcTargets.StateAuthority, HostMode = RpcHostMode.SourceIsHostPlayer)]
     public void RPC_ChangeTo(TrashState state)
@@ -56,6 +60,8 @@ public class Item : NetworkBehaviour
         {
             mfilter.mesh = statemap[state].mesh;
             mrender.material = statemap[state].material;
+            Current_State = state;
+
         }
     }
     //public void ChangeTo(TrashState state)

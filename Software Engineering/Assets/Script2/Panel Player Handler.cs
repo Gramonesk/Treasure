@@ -40,20 +40,19 @@ public class PanelPlayerHandler : MonoBehaviour
         Debug.Log("Update Ready");
         PanelPlayerPrefab readyEntry = PanelPrefab.GetComponent<PanelPlayerPrefab>();
 
-        if (_isReady ==  false)
+        if (_isReady == false)
         {
             Debug.Log("READYYYYYYYYYYY SIRRRRRRRRR");
             readyEntry.ReadyStatus.text = status.ToString();
-            Debug.Log($"Status = {readyEntry.ReadyStatus.text}");
             readyEntry.ReadyStatus.color = Color.green;
-            _isReady = true;
+            Debug.Log($"Status = {readyEntry.ReadyStatus.text}");
         }
         else
         {
             readyEntry.ReadyStatus.text = "Not Ready";
             readyEntry.ReadyStatus.color = Color.red;
-            _isReady = false;
         }
+        _isReady = !_isReady;
     }
 
 
