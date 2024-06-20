@@ -95,6 +95,7 @@ public class Player : NetworkBehaviour
     public override void Spawned()
     {
         _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState);
+        ReadyCount = 0;
         /*if (HasInputAuthority)
         {
             Nickname = PlayerPrefs.GetString("PlayerNickname");
@@ -124,7 +125,7 @@ public class Player : NetworkBehaviour
     }
     private void Update()
     {
-        if (Object.HasInputAuthority && Input.GetKeyDown(KeyCode.R))
+        if (Object.HasInputAuthority && Input.GetKeyDown(KeyCode.R) && allReady == false)
         {
             PanelPlayerHandler panel = GameObject.FindObjectOfType<PanelPlayerHandler>().GetComponent<PanelPlayerHandler>();
             panel.UpdatePlayerStatus();

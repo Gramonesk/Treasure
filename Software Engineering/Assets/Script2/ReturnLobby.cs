@@ -7,6 +7,7 @@ public class ReturnLobby : MonoBehaviour
 {
     public void ReturnToTheLobby()
     {
+        BasicSpawner spawner = GameObject.FindAnyObjectByType<BasicSpawner>().GetComponent<BasicSpawner>();
         BasicSpawner.ReturnToLobby();
     }
     public void LoadTheScene(string name)

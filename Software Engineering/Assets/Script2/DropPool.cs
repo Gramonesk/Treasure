@@ -83,10 +83,11 @@ public class DropPool : NetworkBehaviour
     }*/
 
 
-    private void CreateObj()
+    public void CreateObj()
     {
+        Debug.Log("Spawning Item");
         // var item = Instantiate(prefab, placeHolder); // Biasa
-        var itemNetwork = Runner.Spawn(prefab); // Runner
+        var itemNetwork = Runner.Spawn(prefab, placeHolder.position); // Runner
 
     }
 
