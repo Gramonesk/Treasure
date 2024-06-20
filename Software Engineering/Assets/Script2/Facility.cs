@@ -9,7 +9,6 @@ using UnityEngine;
 public enum TrashState{
     raw,
     crushed,
-    burned,
     incinerated,
     grinded,
     sold

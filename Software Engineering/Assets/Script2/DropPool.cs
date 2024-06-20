@@ -8,8 +8,6 @@ using Fusion;
 public class DropPool : NetworkBehaviour
 {
 
-
-
     /*[System.Serializable]
     public class pool
     {
@@ -27,6 +25,9 @@ public class DropPool : NetworkBehaviour
     }
 
     #endregion
+
+
+
 
     /*public List<pool> pools;
     public Dictionary<string, Queue<GameObject>> PoolDick;*/
@@ -82,12 +83,11 @@ public class DropPool : NetworkBehaviour
     }*/
 
 
-    private Item CreateObj()
+    private void CreateObj()
     {
         // var item = Instantiate(prefab, placeHolder); // Biasa
         var itemNetwork = Runner.Spawn(prefab); // Runner
 
-        return itemNetwork;
     }
 
     /*private void TakeObj(Item prefab)
