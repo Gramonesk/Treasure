@@ -87,10 +87,17 @@ public class DropPool : NetworkBehaviour
         // var item = Instantiate(prefab, placeHolder); // Biasa
         foreach(Item item in prefabs)
         {
+            Invoke("Spawning",2f);
             Runner.Spawn(item, placeHolder.position);
         }
         //var itemNetwork = Runner.Spawn(prefabs[Random.Range(0, prefabs.Count)], placeHolder.position); // Runner
     }
+
+    /*public void Spawning()
+    {
+        Runner.Spawn(item, placeHolder.position);
+    }*/
+
 
     /*private void TakeObj(Item prefab)
     {
