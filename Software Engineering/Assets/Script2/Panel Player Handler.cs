@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
+using Unity.VisualScripting;
 
-public class PanelPlayerHandler : NetworkBehaviour
+public class PanelPlayerHandler : MonoBehaviour
 {
     [Header("MainMenu Scene")]
     public Transform panelPlayer;
@@ -11,9 +12,9 @@ public class PanelPlayerHandler : NetworkBehaviour
     public bool _isReady = false;
     public string status = "Ready";
     public PanelPlayerPrefab _PanelPlayerPrefab;
-    
 
-    /*[Rpc(RpcSources.StateAuthority, RpcTargets.All)]*/
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     public void Start()
     {
         _PanelPlayerPrefab = GetComponent<PanelPlayerPrefab>();
@@ -21,19 +22,18 @@ public class PanelPlayerHandler : NetworkBehaviour
 
     public void UpdatePlayerPanel()
     {
-        /*GameObject newEntry = GameObject.Instantiate(PanelPrefab);*/
-
-        Runner.Spawn(PanelPrefab, panelPlayer.position);
-        /*newEntry.transform.parent = panelPlayer;
-        PanelPlayerPrefab entryName = newEntry.GetComponent<PanelPlayerPrefab>();*/
-
-        
+        GameObject newEntry = GameObject.Instantiate(PanelPrefab);
+        Debug.Log("Create Player Status");
+        /*Runner.Spawn(PanelPrefab, panelPlayer.parent.position);*/
+        newEntry.transform.parent = panelPlayer;
+        PanelPlayerPrefab entryName = newEntry.GetComponent<PanelPlayerPrefab>();
+        entryName.PlayerName_.text = FindAnyObjectByType<Player>().GetComponent<Player>().Nickname.ToString();
 
     }
     public void DeletePlayerPanel()
     {
 
-        /*Destroy(PanelPlayerPrefab);*/
+        Destroy(PanelPrefab);
         /*GameObject newEntry = GameObject.Destroy(PanelPlayerPrefab);*/
 
     }

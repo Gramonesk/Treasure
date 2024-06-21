@@ -295,7 +295,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     public void startCreateSession()
     {
-        Invoke("CreateSession", 5f);
+        Invoke("CreateSession", 3f);
     }
 
 
@@ -516,6 +516,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             _spawnedCharacters.Remove(player);
         }
         playerCountNow--;
+        PanelPlayerHandler panelPHand = GameObject.FindObjectOfType<PanelPlayerHandler>().GetComponent<PanelPlayerHandler>();
+        panelPHand.DeletePlayerPanel();
     }
 
     void INetworkRunnerCallbacks.OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress)

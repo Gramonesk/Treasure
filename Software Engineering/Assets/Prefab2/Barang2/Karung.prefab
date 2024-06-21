@@ -100,12 +100,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemStates:
   - state: 0
-    mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
-    material: {fileID: -6087771358165109452, guid: 31f452507a0d5114197a71bf3f42f10b, type: 3}
+    mesh: {fileID: 289301614986012343, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
+    material: {fileID: -6478536213147159724, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
   - state: 1
     mesh: {fileID: 0}
     material: {fileID: 0}
-  mat: {fileID: 4068726857550190216}
+  mat: {fileID: 919132149155446097, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
   Current_State: 0
 --- !u!114 &3473517309919783399
 MonoBehaviour:

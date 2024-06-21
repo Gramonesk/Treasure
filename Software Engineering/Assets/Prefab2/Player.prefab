@@ -1404,10 +1404,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator: {fileID: 2661583297050992915}
-  TotalWords: 2
+  TotalWords: 0
   ApplyTiming: 2
   SyncSettings: 127
-  StateHashes: 000000007bb2987495d05001
+  StateHashes: 00000000
   TriggerHashes: 00000000
 --- !u!1 &6661919656726013508
 GameObject:

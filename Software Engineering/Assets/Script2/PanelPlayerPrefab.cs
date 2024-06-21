@@ -7,7 +7,10 @@ using static Fusion.NetworkBehaviour;
 
 public class PanelPlayerPrefab : NetworkBehaviour
 {
+
     public TextMeshProUGUI PlayerName_;
+
+
     public TextMeshProUGUI ReadyStatus_;
     // [Networked] public TextMeshProUGUI PlayerName { get => PlayerName_; set => PlayerName_ = value; }
     // [Networked] public TextMeshProUGUI ReadyStatus {  get => ReadyStatus_; set => ReadyStatus_ = value; }
@@ -22,9 +25,9 @@ public class PanelPlayerPrefab : NetworkBehaviour
 
         if (this.HasStateAuthority)
         {
-            PlayerNickname = Runner.GetComponent<Player>().Nickname;
+            PlayerNickname = Runner.GetComponent<BasicSpawner>()._playername;
         }
-        PlayerNickname = Runner.GetComponent<Player>().Nickname;
+        PlayerNickname = Runner.GetComponent<BasicSpawner>()._playername;
 
 
     }
