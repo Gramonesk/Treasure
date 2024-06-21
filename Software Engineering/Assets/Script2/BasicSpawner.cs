@@ -318,10 +318,10 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         _runner.ProvideInput = true;
 
         // Create the NetworkSceneInfo from the current scene
-        /*var scene = SceneRef.FromIndex(1);*/
+        var scene = SceneRef.FromIndex(1);
         /*var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);*/
         /*var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));*/
-        var scene = SceneRef.FromIndex(SceneUtility.GetBuildIndexByScenePath("Assets/Scenes/TestMultiplayer.unity"));
+        // var scene = SceneRef.FromIndex(SceneUtility.GetBuildIndexByScenePath("Assets/Scenes/TestMultiplayer.unity"));
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
@@ -355,10 +355,10 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         _runner.ProvideInput = true;
 
         // Create the NetworkSceneInfo from the current scene
-        /*var scene = SceneRef.FromIndex(1);*/
+        var scene = SceneRef.FromIndex(1);
         /*var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);*/
         /*var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));*/
-        var scene = SceneRef.FromIndex(SceneUtility.GetBuildIndexByScenePath("Assets/Scenes/TestMultiplayer.unity"));
+        // var scene = SceneRef.FromIndex(SceneUtility.GetBuildIndexByScenePath("Assets/Scenes/TestMultiplayer.unity"));
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
