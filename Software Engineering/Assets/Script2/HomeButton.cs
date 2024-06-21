@@ -9,6 +9,13 @@ public class HomeButton : MonoBehaviour
     [SerializeField] GameObject PauseMenu;
     [SerializeField] RectTransform PausePanel;
     [SerializeField] CanvasGroup PauseDarkPanel;
+    [SerializeField] GameObject SettingPanel;
+
+    public void Awake()
+    {
+        SettingPanel.SetActive(false);
+    }
+
 
     public void Pause()
     {
@@ -33,6 +40,12 @@ public class HomeButton : MonoBehaviour
         PauseDarkPanel.DOFade(0, 0.5f);
         await PausePanel.DOAnchorPosY(900, 0.5f).SetEase(Ease.InOutSine).AsyncWaitForCompletion();
     }
+
+    public void Setting()
+    {
+        SettingPanel.SetActive(true);
+    }
+
 
 
 
