@@ -1336,8 +1336,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: -20
   jumpImpulse: 8
-  acceleration: 10
-  braking: 10
+  acceleration: 30
+  braking: 20
   maxSpeed: 5
   rotationSpeed: 15
 --- !u!114 &-6030513987578710571
