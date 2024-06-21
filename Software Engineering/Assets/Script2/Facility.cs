@@ -10,7 +10,7 @@ public enum TrashState{
     raw,
     crushed,
     incinerated,
-    grinded,
+    grinded, Composted,
     sold
 }
 [Serializable]
@@ -19,6 +19,15 @@ public class Convertion
     [Tooltip("After a Certain Duration, change the state")]
     public float Duration;
     public List<TrashState> FromState;
+    /// <summary>
+    /// BUAT MARIO
+    /// ==================================
+    /// CHANGETONYA DI ALTER AJA LEWAT SCRIPT BARU LAIN KALO MAU
+    /// JADI PAS MILIH DI PROCESSOR CHANGETONYA DI SET,
+    /// TERGANTUGN SI KALO SEMISAL CHANGETONYA INI JADI ITEM BEDA LG
+    /// SILAHKAN SCRIPT BARU CMN GANTI KE PREFAB ITEM LAIN UDH YA
+    /// ==================================
+    /// </summary>
     public TrashState ChangeTo;
 }
 public class Facility : NetworkBehaviour
@@ -75,8 +84,8 @@ public class Facility : NetworkBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        Item obj = other.GetComponent<Item>();
-        if (obj == null) return;
+        Debug.Log(other.name);
+        if (!other.TryGetComponent<Item>(out var obj)) return;
         //ntar isi pake highlight (ini pake networked)
         if (!UseInteractables && item == null)
         {
@@ -90,8 +99,7 @@ public class Facility : NetworkBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        Item obj = other.GetComponent<Item>();
-        if(obj == null) return;
+        if (!other.TryGetComponent<Item>(out var obj)) return;
         if (!UseInteractables && item == null)
         {
             item = obj;

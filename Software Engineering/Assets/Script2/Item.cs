@@ -36,7 +36,7 @@ public class Item : NetworkBehaviour
     //[Networked] private MeshFilter mfilter { get; set; }
     private MeshFilter mfilter;
     private MeshRenderer mrender;
-    private void Start()
+    public override void Spawned()
     {
         mfilter = mat.GetComponent<MeshFilter>();
         mrender = mat.GetComponent<MeshRenderer>();

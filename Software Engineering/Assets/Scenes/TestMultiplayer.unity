@@ -189,7 +189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 220d790ce27111c4b8c0895480741124, type: 3}
       propertyPath: m_Name
-      value: Grinder
+      value: Crushed
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -680,19 +680,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1713820433585510223, guid: eaa8ca5114b0c8b44a5dd1e3d0bc89c5, type: 3}
       propertyPath: m_Size.x
-      value: 2.22
+      value: 3.3151002
       objectReference: {fileID: 0}
     - target: {fileID: 1713820433585510223, guid: eaa8ca5114b0c8b44a5dd1e3d0bc89c5, type: 3}
       propertyPath: m_Size.y
-      value: 4.17
+      value: 4.697378
       objectReference: {fileID: 0}
     - target: {fileID: 1713820433585510223, guid: eaa8ca5114b0c8b44a5dd1e3d0bc89c5, type: 3}
       propertyPath: m_Size.z
-      value: 3.57
+      value: 3.7806795
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713820433585510223, guid: eaa8ca5114b0c8b44a5dd1e3d0bc89c5, type: 3}
+      propertyPath: m_Center.x
+      value: -0.54754996
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713820433585510223, guid: eaa8ca5114b0c8b44a5dd1e3d0bc89c5, type: 3}
+      propertyPath: m_Center.y
+      value: -0.26368904
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713820433585510223, guid: eaa8ca5114b0c8b44a5dd1e3d0bc89c5, type: 3}
+      propertyPath: m_Center.z
+      value: 0.10533965
       objectReference: {fileID: 0}
     - target: {fileID: 1713820433585510223, guid: eaa8ca5114b0c8b44a5dd1e3d0bc89c5, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713820433585510223, guid: eaa8ca5114b0c8b44a5dd1e3d0bc89c5, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 503
       objectReference: {fileID: 0}
     - target: {fileID: 1713820433585510223, guid: eaa8ca5114b0c8b44a5dd1e3d0bc89c5, type: 3}
       propertyPath: m_IncludeLayers.m_Bits
@@ -739,7 +755,19 @@ PrefabInstance:
       value: 0.89
       objectReference: {fileID: 0}
     - target: {fileID: 9011043933578656917, guid: eaa8ca5114b0c8b44a5dd1e3d0bc89c5, type: 3}
+      propertyPath: Convertion.ChangeTo
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011043933578656917, guid: eaa8ca5114b0c8b44a5dd1e3d0bc89c5, type: 3}
+      propertyPath: Convertion.Duration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011043933578656917, guid: eaa8ca5114b0c8b44a5dd1e3d0bc89c5, type: 3}
       propertyPath: convertions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011043933578656917, guid: eaa8ca5114b0c8b44a5dd1e3d0bc89c5, type: 3}
+      propertyPath: Convertion.FromState.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9011043933578656917, guid: eaa8ca5114b0c8b44a5dd1e3d0bc89c5, type: 3}
@@ -992,14 +1020,14 @@ BoxCollider:
     m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 503
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 3.1307893, y: 3.5017712, z: 3.6714325}
+  m_Center: {x: 1.0653948, y: 1.2508858, z: -0.04904439}
 --- !u!4 &439069031
 Transform:
   m_ObjectHideFlags: 0
@@ -12337,7 +12365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Convertion:
-    Duration: 10
+    Duration: 2
     FromState: 00000000
     ChangeTo: 1
   UseInteractables: 0
@@ -12404,7 +12432,7 @@ BoxCollider:
     m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 503
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -13991,7 +14019,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2952b1c5394b85244878e6492c6669ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 339031379296419653, guid: 7604d0cc8a01e844c9c1633691e5215d, type: 3}
+  prefabs:
+  - {fileID: 339031379296419653, guid: be5e256c36b690f44b89bf4ea694d4f4, type: 3}
+  - {fileID: 339031379296419653, guid: 60eba7c43889f624a9f4bb64041dbbaf, type: 3}
+  - {fileID: 339031379296419653, guid: 451a4d2b87a6391438061f2a837f1d2d, type: 3}
+  - {fileID: 339031379296419653, guid: 7604d0cc8a01e844c9c1633691e5215d, type: 3}
   placeHolder: {fileID: 435295560}
 --- !u!114 &1583437166
 MonoBehaviour:
@@ -15130,9 +15162,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Convertion:
-    Duration: 0
-    FromState: 
-    ChangeTo: 0
+    Duration: 2
+    FromState: 00000000
+    ChangeTo: 2
   UseInteractables: 0
   CanGrabOnProcess: 0
 --- !u!23 &4552755558344333014
@@ -15208,14 +15240,14 @@ BoxCollider:
     m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 503
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.72, y: 3.11, z: 2.83}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 4.72, y: 4.7359037, z: 2.83}
+  m_Center: {x: 1.365057e-10, y: 0.81295264, z: -4.0681867e-18}
 --- !u!4 &6178919703265365661
 Transform:
   m_ObjectHideFlags: 0
