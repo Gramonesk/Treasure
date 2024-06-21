@@ -8,6 +8,11 @@ public class Soundmanager : MonoBehaviour
 {
     [SerializeField] Slider volumeSlider;
 
+    private void Awake()
+    {
+        PlayerPrefs.SetFloat("musicVolume", 1);
+    }
+
     private void Start()
     {
         if (PlayerPrefs.HasKey("musicVolume"))
