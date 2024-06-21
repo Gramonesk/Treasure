@@ -328,15 +328,14 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     {
         DontDestroyOnLoad(gameObject);
         yield return SceneManager.LoadSceneAsync(sceneName);
-        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);  // <- Jangan dipakai
+        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
         /*var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));*/ // Jangan Dipakai
-                                                                           // var scene = SceneRef.FromIndex(SceneUtility.GetBuildIndexByScenePath("Assets/Scenes/TestMultiplayer.unity"));
+        // var scene = SceneRef.FromIndex(SceneUtility.GetBuildIndexByScenePath("Assets/Scenes/TestMultiplayer.unity"));
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
             sceneInfo.AddSceneRef(scene, LoadSceneMode.Additive);
         }
-
         // Start or join (depends on gamemode) a session with a specific name
         _runner.StartGame(new StartGameArgs()
         {

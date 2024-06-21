@@ -30,7 +30,7 @@ public class HomeButton : MonoBehaviour
 
     async Task PauseOutro()
     {
-        PauseDarkPanel.DOFade(0, 05f);
+        PauseDarkPanel.DOFade(0, 0.5f);
         await PausePanel.DOAnchorPosY(900, 0.5f).SetEase(Ease.InOutSine).AsyncWaitForCompletion();
     }
 

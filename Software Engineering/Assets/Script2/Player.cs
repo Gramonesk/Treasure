@@ -195,7 +195,7 @@ public class Player : NetworkBehaviour
                     break;
             }
         }
-        PlayerAnimation.SetFloat("Speed", _cc.Velocity.magnitude);
+        // PlayerAnimation.SetFloat("Speed", _cc.Velocity.magnitude);
 
         _material.color = Color.Lerp(_material.color, Color.blue, Time.deltaTime);
     }
@@ -205,6 +205,8 @@ public class Player : NetworkBehaviour
     private Item obj;
     public override void FixedUpdateNetwork()
     {
+        PlayerAnimation.SetFloat("Speed", _cc.Velocity.magnitude);
+
         if (GetInput(out NetInput data))
         {
             data.direction.Normalize();
