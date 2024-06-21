@@ -13719,8 +13719,9 @@ MonoBehaviour:
   NameCanvas: {fileID: 1760103852}
   nameinputfield: {fileID: 1451110736}
   _playername: 
-  GameScene: {fileID: 102900000, guid: 8af91b93d7d3a4843a3f492d285176ee, type: 3}
   SceneMultiplier: 
+  GameScenes:
+    m_Handle: 0
 --- !u!4 &1892090069
 Transform:
   m_ObjectHideFlags: 0

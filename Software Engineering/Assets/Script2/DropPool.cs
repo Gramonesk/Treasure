@@ -16,23 +16,20 @@ public class DropPool : NetworkBehaviour
         public int limit;
     }*/
 
-    #region Instance
-    public static DropPool Instance;
+    //#region Instance
+    //public static DropPool Instance;
 
-    public void Awake()
-    {
-        if (Instance == null) Instance = this;
-    }
+    //public void Awake()
+    //{
+    //    if (Instance == null) Instance = this;
+    //}
 
-    #endregion
-
-
-
+    //#endregion
 
     /*public List<pool> pools;
     public Dictionary<string, Queue<GameObject>> PoolDick;*/
 
-    [SerializeField] private Item prefab;
+    [SerializeField] private List<Item> prefabs;
     [SerializeField] private Transform placeHolder;
 
 
@@ -83,11 +80,16 @@ public class DropPool : NetworkBehaviour
     }*/
 
 
-    private void CreateObj()
+    public void CreateObj()
     {
+        Debug.Log("Spawning Item");
+        Debug.Log("MARIO INI ME BLM BIKININ CUMAN TESTING ITEM, MATERIAL JG BELUM IMPLIMENT YAH");
         // var item = Instantiate(prefab, placeHolder); // Biasa
-        var itemNetwork = Runner.Spawn(prefab); // Runner
-
+        foreach(Item item in prefabs)
+        {
+            Runner.Spawn(item, placeHolder.position);
+        }
+        //var itemNetwork = Runner.Spawn(prefabs[Random.Range(0, prefabs.Count)], placeHolder.position); // Runner
     }
 
     /*private void TakeObj(Item prefab)

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Dropper : MonoBehaviour
 {
-    DropPool drop;
+    //DropPool drop;
 
-    private void Start()
-    {
-        drop = DropPool.Instance;
-    }
+    //private void Start()
+    //{
+    //    drop = DropPool.Instance;
+    //}
 
 
     /*public void DropTrash()

@@ -46,7 +46,7 @@ public class Player : NetworkBehaviour
 
     //private Vector3 _forward = Vector3.forward;
     private NetworkCharacterController _cc;
-
+    public Animator PlayerAnimation; 
     private TMP_Text _messages;
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority, HostMode = RpcHostMode.SourceIsHostPlayer)]
@@ -95,6 +95,7 @@ public class Player : NetworkBehaviour
     public override void Spawned()
     {
         _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState);
+        ReadyCount = 0;
         /*if (HasInputAuthority)
         {
             Nickname = PlayerPrefs.GetString("PlayerNickname");
@@ -105,6 +106,7 @@ public class Player : NetworkBehaviour
             RPC_PlayerName(Nickname);
         }*/
 
+        PlayerAnimation = GetComponent<Animator>();
         if (this.HasStateAuthority)
         {
             Debug.Log("PUNYA STATE AUTHORITY");
@@ -124,7 +126,7 @@ public class Player : NetworkBehaviour
     }
     private void Update()
     {
-        if (Object.HasInputAuthority && Input.GetKeyDown(KeyCode.R))
+        if (Object.HasInputAuthority && Input.GetKeyDown(KeyCode.R) && allReady == false)
         {
             PanelPlayerHandler panel = GameObject.FindObjectOfType<PanelPlayerHandler>().GetComponent<PanelPlayerHandler>();
             panel.UpdatePlayerStatus();
@@ -193,6 +195,8 @@ public class Player : NetworkBehaviour
                     break;
             }
         }
+        // PlayerAnimation.SetFloat("Speed", _cc.Velocity.magnitude);
+
         _material.color = Color.Lerp(_material.color, Color.blue, Time.deltaTime);
     }
 
@@ -201,10 +205,14 @@ public class Player : NetworkBehaviour
     private Item obj;
     public override void FixedUpdateNetwork()
     {
+        PlayerAnimation.SetFloat("Speed", _cc.Velocity.magnitude);
+
         if (GetInput(out NetInput data))
         {
             data.direction.Normalize();
             _cc.Move(5 * data.direction * Runner.DeltaTime);
+            
+            /*Debug.Log(_cc.Velocity.magnitude);*/
             if (HasStateAuthority)
             {
                 if (data.buttons.IsSet(InputButton.Left_Click))

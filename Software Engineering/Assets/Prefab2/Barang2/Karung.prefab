@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3473517309919783399}
   - component: {fileID: 9170561933647539010}
   m_Layer: 3
-  m_Name: Cube
+  m_Name: Karung
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,12 +100,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemStates:
   - state: 0
-    mesh: {fileID: 0}
-    material: {fileID: 0}
+    mesh: {fileID: 289301614986012343, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
+    material: {fileID: -6478536213147159724, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
   - state: 1
     mesh: {fileID: 0}
     material: {fileID: 0}
-  mat: {fileID: 0}
+  mat: {fileID: 919132149155446097, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
   Current_State: 0
 --- !u!114 &3473517309919783399
 MonoBehaviour:

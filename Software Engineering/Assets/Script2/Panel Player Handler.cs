@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
+using Unity.VisualScripting;
 
 public class PanelPlayerHandler : MonoBehaviour
 {
@@ -10,27 +11,29 @@ public class PanelPlayerHandler : MonoBehaviour
     public GameObject PanelPrefab;
     public bool _isReady = false;
     public string status = "Ready";
+    public PanelPlayerPrefab _PanelPlayerPrefab;
 
 
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     public void Start()
     {
+        _PanelPlayerPrefab = GetComponent<PanelPlayerPrefab>();
     }
 
     public void UpdatePlayerPanel()
     {
         GameObject newEntry = GameObject.Instantiate(PanelPrefab);
+        Debug.Log("Create Player Status");
+        /*Runner.Spawn(PanelPrefab, panelPlayer.parent.position);*/
         newEntry.transform.parent = panelPlayer;
-
         PanelPlayerPrefab entryName = newEntry.GetComponent<PanelPlayerPrefab>();
+        entryName.PlayerName_.text = FindAnyObjectByType<Player>().GetComponent<Player>().Nickname.ToString();
 
-        BasicSpawner player = GameObject.FindObjectOfType<BasicSpawner>().GetComponent<BasicSpawner>();
-        entryName.PlayerName.text = player._playername.ToString();
     }
     public void DeletePlayerPanel()
     {
 
-        /*Destroy(PanelPlayerPrefab);*/
+        Destroy(PanelPrefab);
         /*GameObject newEntry = GameObject.Destroy(PanelPlayerPrefab);*/
 
     }
@@ -43,14 +46,14 @@ public class PanelPlayerHandler : MonoBehaviour
         if (_isReady == false)
         {
             Debug.Log("READYYYYYYYYYYY SIRRRRRRRRR");
-            readyEntry.ReadyStatus.text = status.ToString();
-            readyEntry.ReadyStatus.color = Color.green;
-            Debug.Log($"Status = {readyEntry.ReadyStatus.text}");
+            readyEntry.ReadyStatus_.text = status.ToString();
+            readyEntry.ReadyStatus_.color = Color.green;
+            Debug.Log($"Status = {readyEntry.ReadyStatus_.text}");
         }
         else
         {
-            readyEntry.ReadyStatus.text = "Not Ready";
-            readyEntry.ReadyStatus.color = Color.red;
+            readyEntry.ReadyStatus_.text = "Not Ready";
+            readyEntry.ReadyStatus_.color = Color.red;
         }
         _isReady = !_isReady;
     }

@@ -12,8 +12,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static System.Collections.Specialized.BitVector32;
+using System.Linq;
 
-# if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 #endif
 
@@ -63,8 +64,9 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     // Ini Gak bisa di Build karena pakai namespace Unity.Editor
     [Header("Game Scene")]
-    public SceneAsset GameScene;
+    /*public SceneAsset GameScene;*/
     public string SceneMultiplier;
+    public Scene GameScenes;
 
    /* [Header("MainMenu Scene")]
     public Transform panelPlayer;
@@ -293,11 +295,11 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
     public void startCreateSession()
     {
-        Invoke("CreateSession", 5f);
+        Invoke("CreateSession", 3f);
     }
 
 
-    public async void CreateSession()
+    public void CreateSession()
     {
         int randomInt = UnityEngine.Random.Range(100, 999);
         string _SessionName = "Room" + randomInt;
@@ -317,17 +319,25 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         _runner.ProvideInput = true;
 
         // Create the NetworkSceneInfo from the current scene
-        /*var scene = SceneRef.FromIndex(1);*/
-        /*var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);*/
-        var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));
+        //var scene = SceneRef.FromIndex(1);
+        //var scene = SceneRef.FromIndex(SceneManager.GetSceneByName("Scene4Conveyor1").buildIndex);
+
+        StartCoroutine(Load("TestMultiplayer", _SessionName));
+    }
+    IEnumerator Load(string sceneName, string _SessionName)
+    {
+        DontDestroyOnLoad(gameObject);
+        yield return SceneManager.LoadSceneAsync(sceneName);
+        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
+        /*var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));*/ // Jangan Dipakai
+        // var scene = SceneRef.FromIndex(SceneUtility.GetBuildIndexByScenePath("Assets/Scenes/TestMultiplayer.unity"));
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
             sceneInfo.AddSceneRef(scene, LoadSceneMode.Additive);
         }
-
         // Start or join (depends on gamemode) a session with a specific name
-        await _runner.StartGame(new StartGameArgs()
+        _runner.StartGame(new StartGameArgs()
         {
             /*GameMode = GameMode.Host,*/
             GameMode = GameMode.Shared,
@@ -337,10 +347,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
             PlayerCount = 4,
         });
-
     }
-
-    public async void JoinSession(string _SessionName)
+    public void JoinSession(string _SessionName)
     {
         PanelCanvas.SetActive(false);
         if(_runner == null)
@@ -352,23 +360,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         phys.ClientPhysicsSimulation = ClientPhysicsSimulation.SimulateForward;
         _runner.ProvideInput = true;
 
-        // Create the NetworkSceneInfo from the current scene
-        /*var scene = SceneRef.FromIndex(1);*/
-        /*var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);*/
-        var scene = SceneRef.FromIndex(GetSceneIndex(GameScene.name));
-        var sceneInfo = new NetworkSceneInfo();
-        if (scene.IsValid)
-        {
-            sceneInfo.AddSceneRef(scene, LoadSceneMode.Additive);
-        }
 
-        await _runner.StartGame(new StartGameArgs()
-        {
-            GameMode = GameMode.Shared,
-            Scene = scene,
-            SessionName = _SessionName,
-            SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
-        });
+        StartCoroutine(Load("TestMultiplayer", _SessionName));
     }
 
     /*public void StartTheWave()
@@ -513,7 +506,6 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
         PanelPlayerHandler panelPHand = GameObject.FindObjectOfType<PanelPlayerHandler>().GetComponent<PanelPlayerHandler>();
         panelPHand.UpdatePlayerPanel();
-
     }
 
     void INetworkRunnerCallbacks.OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -524,6 +516,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             _spawnedCharacters.Remove(player);
         }
         playerCountNow--;
+        PanelPlayerHandler panelPHand = GameObject.FindObjectOfType<PanelPlayerHandler>().GetComponent<PanelPlayerHandler>();
+        panelPHand.DeletePlayerPanel();
     }
 
     void INetworkRunnerCallbacks.OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress)
