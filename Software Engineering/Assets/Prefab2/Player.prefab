@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Player Nickname
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 080c44facf15ff04480d610deb037595, type: 2}
+  m_sharedMaterial: {fileID: -4160562264761098541, guid: 080c44facf15ff04480d610deb037595, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52.75
+  m_fontSize: 63.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1404,10 +1404,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator: {fileID: 2661583297050992915}
-  TotalWords: 1
+  TotalWords: 2
   ApplyTiming: 2
-  SyncSettings: 79
-  StateHashes: 000000008a18fce4b9abd9d3e6d4b8de08b670ab
+  SyncSettings: 127
+  StateHashes: 000000007bb2987495d05001
   TriggerHashes: 00000000
 --- !u!1 &6661919656726013508
 GameObject:

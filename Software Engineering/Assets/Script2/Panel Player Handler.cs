@@ -3,29 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 
-public class PanelPlayerHandler : MonoBehaviour
+public class PanelPlayerHandler : NetworkBehaviour
 {
     [Header("MainMenu Scene")]
     public Transform panelPlayer;
     public GameObject PanelPrefab;
     public bool _isReady = false;
     public string status = "Ready";
+    public PanelPlayerPrefab _PanelPlayerPrefab;
+    
 
-
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    /*[Rpc(RpcSources.StateAuthority, RpcTargets.All)]*/
     public void Start()
     {
+        _PanelPlayerPrefab = GetComponent<PanelPlayerPrefab>();
     }
 
     public void UpdatePlayerPanel()
     {
-        GameObject newEntry = GameObject.Instantiate(PanelPrefab);
-        newEntry.transform.parent = panelPlayer;
+        /*GameObject newEntry = GameObject.Instantiate(PanelPrefab);*/
 
-        PanelPlayerPrefab entryName = newEntry.GetComponent<PanelPlayerPrefab>();
+        Runner.Spawn(PanelPrefab, panelPlayer.position);
+        /*newEntry.transform.parent = panelPlayer;
+        PanelPlayerPrefab entryName = newEntry.GetComponent<PanelPlayerPrefab>();*/
 
-        BasicSpawner player = GameObject.FindObjectOfType<BasicSpawner>().GetComponent<BasicSpawner>();
-        entryName.PlayerName.text = player._playername.ToString();
+        
+
     }
     public void DeletePlayerPanel()
     {
@@ -43,14 +46,14 @@ public class PanelPlayerHandler : MonoBehaviour
         if (_isReady == false)
         {
             Debug.Log("READYYYYYYYYYYY SIRRRRRRRRR");
-            readyEntry.ReadyStatus.text = status.ToString();
-            readyEntry.ReadyStatus.color = Color.green;
-            Debug.Log($"Status = {readyEntry.ReadyStatus.text}");
+            readyEntry.ReadyStatus_.text = status.ToString();
+            readyEntry.ReadyStatus_.color = Color.green;
+            Debug.Log($"Status = {readyEntry.ReadyStatus_.text}");
         }
         else
         {
-            readyEntry.ReadyStatus.text = "Not Ready";
-            readyEntry.ReadyStatus.color = Color.red;
+            readyEntry.ReadyStatus_.text = "Not Ready";
+            readyEntry.ReadyStatus_.color = Color.red;
         }
         _isReady = !_isReady;
     }

@@ -212,7 +212,7 @@ public class Player : NetworkBehaviour
             data.direction.Normalize();
             _cc.Move(5 * data.direction * Runner.DeltaTime);
             
-            //Debug.Log(_cc.Velocity.magnitude);
+            /*Debug.Log(_cc.Velocity.magnitude);*/
             if (HasStateAuthority)
             {
                 if (data.buttons.IsSet(InputButton.Left_Click))
