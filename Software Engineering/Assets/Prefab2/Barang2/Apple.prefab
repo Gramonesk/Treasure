@@ -103,7 +103,7 @@ MonoBehaviour:
     mesh: {fileID: 2534964839176971238, guid: 8c0d7e87e5ee1c54da7a454e7256fcca, type: 3}
     material: {fileID: -2813467912831258332, guid: 8c0d7e87e5ee1c54da7a454e7256fcca, type: 3}
   - state: 4
-    mesh: {fileID: 0}
+    mesh: {fileID: -5495902117074765545, guid: 220d790ce27111c4b8c0895480741124, type: 3}
     material: {fileID: 0}
   mat: {fileID: 919132149155446097, guid: 8c0d7e87e5ee1c54da7a454e7256fcca, type: 3}
   Current_State: 0
