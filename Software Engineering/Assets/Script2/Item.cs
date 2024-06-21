@@ -32,10 +32,12 @@ public class Item : NetworkBehaviour
 
     public Action OnPicked;
     public Action<Item> OnDropped;
+    public bool CantPicked = false;
     //[Networked] private MeshRenderer mrender { get; set; }
     //[Networked] private MeshFilter mfilter { get; set; }
     private MeshFilter mfilter;
     private MeshRenderer mrender;
+
     public override void Spawned()
     {
         mfilter = mat.GetComponent<MeshFilter>();

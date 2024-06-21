@@ -234,7 +234,7 @@ public class Player : NetworkBehaviour
                         {
                             item = ray.collider.GetComponent<NetworkObject>();
                             obj = item.GetComponent<Item>();
-                            if (obj == null) return;
+                            if (obj == null && obj.CantPicked == true) return;
                             ray.collider.GetComponent<Rigidbody>().isKinematic = true;
                             item.transform.parent = hand;
                             item.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);

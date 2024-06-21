@@ -92,9 +92,13 @@ public class Facility : NetworkBehaviour
             if (Convertion.FromState.Contains(obj.Current_State) && obj.statemap.ContainsKey(Convertion.ChangeTo))
             {
                 Debug.Log("I can be activated");
+                obj.CantPicked = true;
                 obj.OnDropped = Initiate;
             }
             
+        } else
+        {
+            obj.CantPicked = false;
         }
     }
     private void OnTriggerExit(Collider other)
