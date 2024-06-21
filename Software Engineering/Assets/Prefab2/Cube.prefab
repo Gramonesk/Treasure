@@ -102,9 +102,6 @@ MonoBehaviour:
   - state: 0
     mesh: {fileID: 0}
     material: {fileID: 0}
-  - state: 1
-    mesh: {fileID: 0}
-    material: {fileID: 0}
   mat: {fileID: 0}
   Current_State: 0
 --- !u!114 &3473517309919783399
