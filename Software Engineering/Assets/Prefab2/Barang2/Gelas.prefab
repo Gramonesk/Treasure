@@ -102,10 +102,12 @@ MonoBehaviour:
   ItemStates:
   - state: 0
     mesh: {fileID: -7387706064836869012, guid: cb523c610b5cb0142b57e24b6e76cefb, type: 3}
-    material: {fileID: -3846018093981099296, guid: cb523c610b5cb0142b57e24b6e76cefb, type: 3}
+    material:
+    - {fileID: -3846018093981099296, guid: cb523c610b5cb0142b57e24b6e76cefb, type: 3}
   - state: 2
     mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    material: {fileID: -2813467912831258332, guid: 8c0d7e87e5ee1c54da7a454e7256fcca, type: 3}
+    material:
+    - {fileID: 2100000, guid: 88a3b6f972f9dcb428b58db357e0dda6, type: 2}
   mat: {fileID: 6304149432248175587}
   Current_State: 0
   CantPicked: 0

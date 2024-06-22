@@ -46,7 +46,6 @@ public class Facility : NetworkBehaviour
 
     [Networked] private Item item { get; set; }
     Action action;
-    private int index = 0;
     public void FixedUpdate()
     {
         action?.Invoke();
@@ -62,13 +61,11 @@ public class Facility : NetworkBehaviour
         {
             action = null;
             item.RPC_ChangeTo(Convertion.ChangeTo);
-            index++;
             StopProcess();
         }
     }
     public void StopProcess()
     {
-        index = 0;
         item.OnPicked = null;
         item.OnDropped = null;
         item = null;

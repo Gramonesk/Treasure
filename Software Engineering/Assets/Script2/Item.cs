@@ -1,9 +1,7 @@
 using Fusion;
 using Fusion.Addons.Physics;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using static Fusion.NetworkBehaviour;
 
@@ -12,7 +10,7 @@ public class State
 {
     public TrashState state;
     public Mesh mesh;
-    public Material material;
+    public Material[] material;
 }
 [RequireComponent(typeof(Rigidbody), typeof(NetworkRigidbody3D))]
 public class Item : NetworkBehaviour
@@ -29,7 +27,6 @@ public class Item : NetworkBehaviour
     /*public delegate void OnDisableCallback(Item Instance);
     public OnDisableCallback onDisable;*/
 
-
     public Action OnPicked;
     public Action<Item> OnDropped;
     public bool CantPicked = false;
@@ -37,7 +34,6 @@ public class Item : NetworkBehaviour
     //[Networked] private MeshFilter mfilter { get; set; }
     private MeshFilter mfilter;
     private MeshRenderer mrender;
-
     public override void Spawned()
     {
         mfilter = mat.GetComponent<MeshFilter>();
@@ -46,9 +42,7 @@ public class Item : NetworkBehaviour
         {
             statemap.Add(s.state, s);
         }
-        Current_State = TrashState.raw;
         RPC_ChangeTo(Current_State);
-
     }
     [Rpc(RpcSources.All, RpcTargets.StateAuthority, HostMode = RpcHostMode.SourceIsHostPlayer)]
     public void RPC_ChangeTo(TrashState state)
@@ -58,13 +52,18 @@ public class Item : NetworkBehaviour
     [Rpc(RpcSources.StateAuthority, RpcTargets.All, HostMode = RpcHostMode.SourceIsServer)]
     public void RPC_Change(TrashState state)
     {
-        if (statemap.ContainsKey(state))
+        if (state == TrashState.sold)
+        {
+            //Point++;
+        }
+        else if (statemap.ContainsKey(state))
         {
             mfilter.mesh = statemap[state].mesh;
-            mrender.material = statemap[state].material;
+            mrender.materials = statemap[state].material;
             Current_State = state;
-
+            Debug.Log("Changed");
         }
+
     }
     //public void ChangeTo(TrashState state)
     //{
