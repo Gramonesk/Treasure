@@ -102,10 +102,16 @@ MonoBehaviour:
   ItemStates:
   - state: 0
     mesh: {fileID: 289301614986012343, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
-    material: {fileID: -6478536213147159724, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
+    material:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   - state: 1
     mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    material: {fileID: 9185737683893222716, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
+    material:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   mat: {fileID: 919132149155446097, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
   Current_State: 0
   CantPicked: 0
@@ -298,6 +304,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -6478536213147159724, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
+    - target: {fileID: -7511558181221131132, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 9185737683893222716, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
     - target: {fileID: 919132149155446097, guid: 9626c2fffea28a34ab2da5afc0670b5c, type: 3}
       propertyPath: m_Name
       value: Waste2
