@@ -20,12 +20,20 @@ public class Player : NetworkBehaviour
     public LayerMask layermask;
     public TextMeshProUGUI playernickname;
 
-    public NetworkPrefabRef prefab;
+    /*public NetworkPrefabRef prefab;*/
 
     [Networked/*, OnChangedRender(nameof(UpdatePlayerName))*/] public NetworkString<_16> Nickname { get; set; }
 
+
+    [Header("Animation")]
+    public Animator PlayerAnimator;
+
+
     [Header("Player Ready")]
     public bool _isReady = false;
+
+    
+
 
     [Networked] public int ReadyCount {  get; set; }
     [Networked] public TickTimer CountDown {  get; set; }
@@ -46,7 +54,7 @@ public class Player : NetworkBehaviour
 
     //private Vector3 _forward = Vector3.forward;
     private NetworkCharacterController _cc;
-    public Animator PlayerAnimation; 
+    /*public Animator PlayerAnimation; */
     private TMP_Text _messages;
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority, HostMode = RpcHostMode.SourceIsHostPlayer)]
@@ -106,7 +114,7 @@ public class Player : NetworkBehaviour
             RPC_PlayerName(Nickname);
         }*/
 
-        PlayerAnimation = GetComponent<Animator>();
+        /*PlayerAnimator = GetComponent<Animator>();*/
         if (this.HasStateAuthority)
         {
             Debug.Log("PUNYA STATE AUTHORITY");
@@ -208,13 +216,13 @@ public class Player : NetworkBehaviour
     private Item obj;
     public override void FixedUpdateNetwork()
     {
-        PlayerAnimation.SetFloat("Speed", _cc.Velocity.magnitude);
 
         if (GetInput(out NetInput data))
         {
             data.direction.Normalize();
             _cc.Move(5 * data.direction * Runner.DeltaTime);
-            
+            PlayerAnimator.SetFloat("Speed", _cc.Velocity.magnitude);
+
             /*Debug.Log(_cc.Velocity.magnitude);*/
             if (HasStateAuthority)
             {
