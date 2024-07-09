@@ -386,12 +386,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
         await _runner.StartGame(new StartGameArgs()
         {
-            GameMode = GameMode.Host,
+            GameMode = GameMode.Client,
             /*GameMode = GameMode.Shared,*/
             SessionName = _SessionName,
             //Address = NetAddress.Any
             Scene = scene,
-            EnableClientSessionCreation = true,
+            EnableClientSessionCreation = false,
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
             PlayerCount = 4,
         });
