@@ -9,7 +9,7 @@ public class PanelPrefabManager : MonoBehaviour
     public TextMeshProUGUI SessionName;
     public TextMeshProUGUI playerCount;
     public Button joinButton;
-    public GameObject PanelCanvas;
+    /*public GameObject PanelCanvas;*/
     public static PanelPrefabManager Instance;
 
     /*public bool isJoin = false;*/
@@ -30,7 +30,7 @@ public class PanelPrefabManager : MonoBehaviour
     {
         /*isJoin = true;*/
         BasicSpawner.instance.JoinSession(SessionName.text);
-        PanelCanvas.SetActive(false);
+        /*PanelCanvas.SetActive(false);*/
 
     }
 

@@ -67,11 +67,20 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     [Header("Game Scene")]
     /*public SceneAsset GameScene;*/
     public string SceneMultiplier;
+    
+
+    [Header("Canvas inGame")]
+    public GameObject uiInGame;
     /*public Scene GameScenes;*/
 
-   /* [Header("MainMenu Scene")]
-    public Transform panelPlayer;
-    public GameObject PanelPlayerPrefab;*/
+
+    /* [Header("MainMenu Scene")]
+     public Transform panelPlayer;*/
+
+    [Header("Room Name")]
+    public TextMeshProUGUI Roomname;
+
+    // public GameObject PanelPlayerPrefab;
 
     // public SceneAsset LobbyScene;
 
@@ -306,6 +315,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         string _SessionName = "Room" + randomInt;
         Debug.Log(_SessionName);
         Debug.Log(sessionListUI);
+        Roomname.text = _SessionName;
 
 
         // Create the Fusion runner and let it know that we will be providing user input
@@ -367,6 +377,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
     }*/
     async public void JoinSession(string _SessionName)
     {
+
+        Roomname.text = _SessionName;
         PanelCanvas.SetActive(false);
         if(_runner == null)
         {
@@ -533,6 +545,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, Vector3.zero, Quaternion.identity, player);
             // Keep track of the player avatars for easy access
             _spawnedCharacters.Add(player, networkPlayerObject);
+            uiInGame.SetActive(true);
         }
         /*if (player == _runner.LocalPlayer)
         {

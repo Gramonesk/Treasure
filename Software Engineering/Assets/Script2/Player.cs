@@ -19,6 +19,8 @@ public class Player : NetworkBehaviour
     public float distance;
     public LayerMask layermask;
     public TextMeshProUGUI playernickname;
+    public TextMeshProUGUI playerStatus;
+    public GameObject Status;
 
     /*public NetworkPrefabRef prefab;*/
 
@@ -41,6 +43,10 @@ public class Player : NetworkBehaviour
 
 
     public bool allReady = false;
+
+
+    
+
 
     private Material _material;
     [HideInInspector][Networked] public bool spawnedProjectile { get; set; }
@@ -129,6 +135,7 @@ public class Player : NetworkBehaviour
         {
             WaveHandler wave = GameObject.FindObjectOfType<WaveHandler>().GetComponent<WaveHandler>();
             wave.StartTimer();
+            Status.SetActive(false);
         }
 
     }
@@ -168,6 +175,8 @@ public class Player : NetworkBehaviour
                         basicSpawner.StartTheWave();*/
                         WaveHandler wave = GameObject.FindObjectOfType<WaveHandler>().GetComponent<WaveHandler>();
                         wave.StartTimer();
+                        Status.SetActive(false);
+
                         allReady = true;
                         break;
 
