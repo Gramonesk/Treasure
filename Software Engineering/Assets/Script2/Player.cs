@@ -230,6 +230,7 @@ public class Player : NetworkBehaviour
                 {
                     if (hand.transform.childCount == 1)
                     {
+                        PlayerAnimator.SetTrigger("Pick");
                         item.GetComponent<Rigidbody>().isKinematic = false;
                         item.transform.parent = null;
                         obj.OnDropped?.Invoke(obj);
@@ -243,6 +244,7 @@ public class Player : NetworkBehaviour
                     {
                         if (Physics.BoxCast(transform.position, transform.localScale * 0.5f, detector.forward, out ray, transform.rotation, distance, layermask))
                         {
+                            PlayerAnimator.SetTrigger("Pick");
                             item = ray.collider.GetComponent<NetworkObject>();
                             obj = item.GetComponent<Item>();
                             if (obj == null && obj.CantPicked == true) return;

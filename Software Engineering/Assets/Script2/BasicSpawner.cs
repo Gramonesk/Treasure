@@ -331,11 +331,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
         
         await _runner.StartGame(new StartGameArgs()
         {
-            /*GameMode = GameMode.Host,*/
-            GameMode = GameMode.Shared,
+            GameMode = GameMode.Host,
+            /*GameMode = GameMode.Shared,*/
             SessionName = _SessionName,
             //Address = NetAddress.Any
             Scene = scene,
+            EnableClientSessionCreation = true,
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
             PlayerCount = 4,
         });
@@ -385,11 +386,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
 
         await _runner.StartGame(new StartGameArgs()
         {
-            /*GameMode = GameMode.Host,*/
-            GameMode = GameMode.Shared,
+            GameMode = GameMode.Host,
+            /*GameMode = GameMode.Shared,*/
             SessionName = _SessionName,
             //Address = NetAddress.Any
             Scene = scene,
+            EnableClientSessionCreation = true,
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
             PlayerCount = 4,
         });
@@ -532,14 +534,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks, IBeforeUpdat
             // Keep track of the player avatars for easy access
             _spawnedCharacters.Add(player, networkPlayerObject);
         }
-        if (player == _runner.LocalPlayer)
+        /*if (player == _runner.LocalPlayer)
         {
-
-
 
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, Vector3.zero, Quaternion.identity, player);
             _spawnedCharacters.Add(player, networkPlayerObject);
-        }
+        }*/
         playerCountNow++;
         Debug.Log($"Total Player = {playerCountNow}");
 
