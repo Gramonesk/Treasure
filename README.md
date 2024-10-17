@@ -30,7 +30,7 @@
 </p>
 
 <h3>Target Audience</h3>
-<p align="justify"> *Trahsure* is designed for 12 - 40 years old individuals who are interested in environmental issues and sustainable practices. The game is suitable for both educational settings and casual gamers who wish to learn in a more interactive and enjoyable manner.
+<p align="justify"> **Trahsure** is designed for 12 - 40 years old individuals who are interested in environmental issues and sustainable practices. The game is suitable for both educational settings and casual gamers who wish to learn in a more interactive and enjoyable manner.
 </p>
 
 # Game Mechanics I Created
