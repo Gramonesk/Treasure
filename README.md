@@ -1,7 +1,3 @@
-<p align="center">
-  <img width="100%"src="https://github.com/ORIAMM/ORIAMM/blob/main/images/TRASHURE.png">
-  </br>
-</p>
 
 <h1>Trashure</h1>
 
@@ -20,6 +16,11 @@
 - Totti Adithana (Project Manager)
 - Yohanes Duns Scotus Aerotri Tunyanan (3D Artist)
 - Justin Tjokro (Game Designer)
+
+<p align="center">
+  <img width="100%"src="https://github.com/ORIAMM/ORIAMM/blob/main/images/TRASHURE.png">
+  </br>
+</p>
 
 <h3>Game Description</h3>
 <p align="justify">loren
