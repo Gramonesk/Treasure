@@ -3,21 +3,16 @@
   </br>
 </p>
 
-## 🔴About
-**Trashure** is a 3D Multiplayer Casual Party Game. Managing and processing trash has been a challenge throughout the world. Alone or with friends, help the world by managing things in Trashure factory. Work together, avoid disaster, and most importantly process all the trash for customer.
+<h1>Trashure</h1>
 
-One day, a breakthrough.
-<blockquote>Make a change in the world.
-An apple a day, keeps the doctor away. A trash processed a day, keeps the calamity away.
+<h3>About This Project</h3>
+<p align="justify">lorem</p>
 
-Different types of trash should be processed differently! Make sure to use the right one!!!</blockquote>
+<h3>Project Info</h3>
 
-
-
-<br>
-
-
-<br>
+| **Role** | **Team Size** | **Development Time** | **Engine** |
+|----------|---------------|---------------------|------------|
+| Game Programmer | 2 | 3 Weeks | Unity 2022 |
 
 ## 👤Developer
 - Mario Valent Wibowo (Lead Programmer)
@@ -26,9 +21,31 @@ Different types of trash should be processed differently! Make sure to use the r
 - Yohanes Duns Scotus Aerotri Tunyanan (3D Artist)
 - Justin Tjokro (Game Designer)
 
-<br>
+<h3>Game Description</h3>
+<p align="justify">loren
+</p>
 
-## 📂Files description
+<h3>Target Gameplay</h3>
+<p align="justify">lorem</p>
+
+# Game Mechanics I Created
+
+<h3>Occlusion and LOD Optimization (Underway)</h3>
+<p align="justify">lorem</p>
+
+
+<h3>NfO (Netcode For GameObjects)(Not Implemented)</h3>
+<p align="justify">lorem</p>
+
+
+<h3>URP Advanced PostProcessing</h3>
+<p align="justify">lorem</p>
+
+
+<h3>What I Learned</h3>
+<p align="justify">lorem</p>
+
+## Files description
 
 ```
 ├── Trashure-Main              # In this Folder, containing the Unity files and README file
@@ -41,3 +58,17 @@ Different types of trash should be processed differently! Make sure to use the r
      ├── ...
       
 ```
+<br>
+
+## Game controls
+
+The following controls are bound in-game, for gameplay and testing.
+
+| Key Binding       | Function          |
+| ----------------- | ----------------- |
+
+<h3>Download Game</h3>
+Currentl cannot be downloaded
+
+If you encounter problem, feel free to contact me
+Thank you
