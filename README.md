@@ -2,7 +2,8 @@
 <h1>Trashure</h1>
 
 <h1>🔴 About This Project</h1>
-<p align="justify">lorem</p>
+<p align="justify"> Trahsure is a collaborative, serious game designed to promote the process of waste regulation and environmental awareness. By combining educational objectives with engaging gameplay, this game aims to create a motivating and immersive learning experience for users of all ages.
+</p>
 
 <h3>Project Info</h3>
 
@@ -29,7 +30,7 @@
 </p>
 
 <h3>Target Audience</h3>
-<p align="justify"> 12 - 40 Years old
+<p align="justify"> *Trahsure* is designed for 12 - 40 years old individuals who are interested in environmental issues and sustainable practices. The game is suitable for both educational settings and casual gamers who wish to learn in a more interactive and enjoyable manner.
 </p>
 
 # Game Mechanics I Created
