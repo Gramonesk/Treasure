@@ -1,7 +1,7 @@
 
 <h1>Trashure</h1>
 
-<h2>🔴 About This Project</h2>
+<h1>🔴 About This Project</h1>
 <p align="justify">lorem</p>
 
 <h3>Project Info</h3>
@@ -34,7 +34,7 @@
 
 # Game Mechanics I Created
 
-<h3>mekanik</h3>
+<h3><b>Multiplayer</b></h3>
 <p align="justify">lorem</p>
 
 
