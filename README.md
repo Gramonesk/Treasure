@@ -1,7 +1,7 @@
 
 <h1>Trashure</h1>
 
-<h3>About This Project</h3>
+<h2>🔴 About This Project</h2>
 <p align="justify">lorem</p>
 
 <h3>Project Info</h3>
@@ -9,6 +9,8 @@
 | **Role** | **Team Size** | **Development Time** | **Engine** |
 |----------|---------------|---------------------|------------|
 | Game Programmer | 2 | 3 Weeks | Unity 2022 |
+| Game Artist     | 2 | 3 Weeks | Unity 2022 |
+| Game Designer   | 1 | 3 Weeks | Unity 2022 |
 
 ## 👤Developer
 - Mario Valent Wibowo (Lead Programmer)
@@ -23,11 +25,12 @@
 </p>
 
 <h3>Game Description</h3>
-<p align="justify">loren
+<p align="justify"> Trashure is a 3D Multiplayer Casual Party Game. Managing and processing trash has been a challenge throughout the world. Alone or with friends, help the world by managing things in Trashure factory. Work together, avoid disaster, and most importantly process all the trash for customer.
 </p>
 
-<h3>Target Gameplay</h3>
-<p align="justify">lorem</p>
+<h3>Target Audience</h3>
+<p align="justify"> 12 - 40 Years old
+</p>
 
 # Game Mechanics I Created
 
