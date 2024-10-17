@@ -36,15 +36,21 @@
 # Game Mechanics I Created
 
 <h3><b>Multiplayer</b></h3>
-<p align="justify">lorem</p>
+<p align="justify">
+  Photon Fusion 2.0 is a powerful real-time multiplayer engine that enables developers to create massive multiplayer online games with ease. This technology can be leveraged to create a variety of multiplier games, such as battle royale, MOBA, or MMORPGs. By utilizing Photon Fusion 2.0, developers can seamlessly handle large numbers of players, ensuring a smooth and lag-free experience for all participants. The engine's robust features, including object synchronization, matchmaking, and load balancing, make it ideal for building complex multiplier games that require high levels of performance and scalability.
+</p>
 
 
-<h3>mekanik</h3>
-<p align="justify">lorem</p>
+<h3><b>Object Pooling</b></h3>
+<p align="justify">
+  
+</p>
 
 
-<h3>mekanik</h3>
-<p align="justify">lorem</p>
+<h3><b>Object Oriented Programming</b></h3>
+<p align="justify">
+  
+</p>
 
 
 <h3>What I Learned</h3>
