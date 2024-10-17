@@ -1,21 +1,36 @@
 
 <h1>Trashure</h1>
 
-<h1>🔴 About This Project</h1>
-<p align="justify"> Trahsure is a collaborative, serious game designed to promote the process of waste regulation and environmental awareness. By combining educational objectives with engaging gameplay, this game aims to create a motivating and immersive learning experience for users of all ages.
+## 🔴 About Game
+<p align="justify"> Trashure is a collaborative game specifically designed for promoting the process of waste regulation and environmental awareness. By combining educational objectives with engaging gameplay, this game aims to create a motivating and immersive learning experience for users of all ages.
 </p>
+<br>
 
-<h3>Project Info</h3>
+## 📋 Project Info 
+* Editor Version : Unity 2022.3.5f1
+* Multiplayer Framework : Photon Fusion 2.0
 
-| **Role** | **Team Size** | **Development Time** | **Engine** |
-|----------|---------------|---------------------|------------|
-| Game Programmer | 2 | 3 Weeks | Unity 2022 |
-| Game Artist     | 2 | 3 Weeks | Unity 2022 |
-| Game Designer   | 1 | 3 Weeks | Unity 2022 |
+| **Name** | **Role** | **Development Time** |
+|----------|----------|----------------------|
+| Mario Valent Wibowo | Game Programmer | 9 days |
+| Philips Sanjaya | Game Programmer | 7 days |
+| Totti Adithana Sunarto | Project Manager | 4 days |
+| Yohanes Duns Scotus Aerotri Tunyanan | Game Artist | 7 days |
+| Justin Tjokro | Game Designer | 7 days |
+<br>
+## 👤Contributions
 
-## 👤Developer
 - Mario Valent Wibowo (Lead Programmer)
-- Philips Sanjaya (Programmer)
+<details>
+  <summary> - Philips Sanjaya (Programmer) </summary>
+
+  1. Main Movement and Game Mechanism Concept
+     - Initial Mechanics Pre-Multiplayer (Movement, interactions, Trash Instances, facilities)
+      
+  3. Early Fusion Mechanism
+     - Initial multiplayer mechanism involving with NetworkObjects, Creating a prototype for lobby, player with a detailed explanation for the other programmer.
+</details>
+
 - Totti Adithana (Project Manager)
 - Yohanes Duns Scotus Aerotri Tunyanan (3D Artist)
 - Justin Tjokro (Game Designer)
