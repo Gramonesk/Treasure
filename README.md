@@ -31,15 +31,15 @@
 
 # Game Mechanics I Created
 
-<h3>Occlusion and LOD Optimization (Underway)</h3>
+<h3>mekanik</h3>
 <p align="justify">lorem</p>
 
 
-<h3>NfO (Netcode For GameObjects)(Not Implemented)</h3>
+<h3>mekanik</h3>
 <p align="justify">lorem</p>
 
 
-<h3>URP Advanced PostProcessing</h3>
+<h3>mekanik</h3>
 <p align="justify">lorem</p>
 
 
