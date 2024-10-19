@@ -77,10 +77,13 @@
 The following controls are bound in-game, for gameplay and testing.
 
 | Key Binding       | Function          |
-| ----------------- | ----------------- |
+| :---: | :---: |
+| WASD | Player Movement |
+| LMB | Pickup Item |
+| RMB | Drop Item |
 
 <h3>Download Game</h3>
-Currentl cannot be downloaded
+Currently the latest version is not downloadable yet as it is in further development and polishing
 
-If you encounter problem, feel free to contact me
+If you volunteer in trying our game, feel free to try and also please report us when encountering a major bug or problem
 Thank you
