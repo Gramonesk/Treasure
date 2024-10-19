@@ -1,5 +1,9 @@
 
 <h1>Trashure</h1>
+<p align="center">
+  <img width="100%"src="https://github.com/ORIAMM/ORIAMM/blob/main/images/TRASHURE.png">
+  </br>
+</p>
 
 ## 🔴 About Game
 <p align="justify"> Trashure is a collaborative game specifically designed for promoting the process of waste regulation and environmental awareness. By combining educational objectives with engaging gameplay, this game aims to create a motivating and immersive learning experience for users of all ages.
@@ -18,58 +22,40 @@
 | Yohanes Duns Scotus Aerotri Tunyanan | Game Artist | 7 days |
 | Justin Tjokro | Game Designer | 7 days |
 <br>
+
 ## 👤Contributions
 
 - Mario Valent Wibowo (Lead Programmer)
 <details>
-  <summary> - Philips Sanjaya (Programmer) </summary>
-
+  <summary> Philips Sanjaya (Programmer) </summary>
+  
+  **More Details**
   1. Main Movement and Game Mechanism Concept
      - Initial Mechanics Pre-Multiplayer (Movement, interactions, Trash Instances, facilities)
       
   3. Early Fusion Mechanism
-     - Initial multiplayer mechanism involving with NetworkObjects, Creating a prototype for lobby, player with a detailed explanation for the other programmer.
+     - Initial multiplayer mechanism involving with NetworkObjects, Creating a prototype for lobby
+    
+  2. Idea Pitching
+     - Providing detailed descriptions about the framework, and the pseudocode for the other programmer
+  
+  **What i learned**
+  - I learned more about the learning and research process in tackling a problem as this project was made recently after the new multiplayer framework released. This was way ahead of what our team expected as we were informed that the multiplayer implimentation was easy. Though at that time we did not think through by using another multiplayer framework but to keep on developing the game using bare knowledge none other than the documentation itself. Through reading on the documentation, i developed my reading skills to grasp such knowledge effortlessly. As another plus, my abiltity to analyze and deconstruct the whole idea through testing it makes it much more easier to be discerned.
+  - Throughout the project, i learned to communicate with the teammates and also improved problem solving skills mainly program designing to tackle an approach. I learned to do an effective communication with the other programmer, providing him concepts to problems that was a problem for him personally.
+  <br>
 </details>
 
 - Totti Adithana (Project Manager)
 - Yohanes Duns Scotus Aerotri Tunyanan (3D Artist)
 - Justin Tjokro (Game Designer)
 
-<p align="center">
-  <img width="100%"src="https://github.com/ORIAMM/ORIAMM/blob/main/images/TRASHURE.png">
-  </br>
-</p>
-
 <h3>Game Description</h3>
 <p align="justify"> Trashure is a 3D Multiplayer Casual Party Game. Managing and processing trash has been a challenge throughout the world. Alone or with friends, help the world by managing things in Trashure factory. Work together, avoid disaster, and most importantly process all the trash for customer.
 </p>
 
 <h3>Target Audience</h3>
-<p align="justify"> **Trahsure** is designed for 12 - 40 years old individuals who are interested in environmental issues and sustainable practices. The game is suitable for both educational settings and casual gamers who wish to learn in a more interactive and enjoyable manner.
+<p align="justify"> <b>Trashure</b> is designed for 12 - 40 years old individuals who are interested in environmental issues and sustainable practices. The game is suitable for both educational settings and casual gamers who wish to learn in a more interactive and enjoyable manner.
 </p>
-
-# Game Mechanics I Created
-
-<h3><b>Multiplayer</b></h3>
-<p align="justify">
-  **Photon Fusion 2.0** is a powerful real-time multiplayer engine that enables developers to create massive multiplayer online games with ease. This technology can be leveraged to create a variety of multiplier games, such as battle royale, MOBA, or MMORPGs. By utilizing Photon Fusion 2.0, developers can seamlessly handle large numbers of players, ensuring a smooth and lag-free experience for all participants. The engine's robust features, including object synchronization, matchmaking, and load balancing, make it ideal for building complex multiplier games that require high levels of performance and scalability.
-</p>
-
-
-<h3><b>Object Pooling</b></h3>
-<p align="justify">
-  
-</p>
-
-
-<h3><b>Trash Conversion</b></h3>
-<p align="justify">
-  Using Object Oriented Programming, 
-</p>
-
-
-<h3>Who Contributed</h3>
-<p align="justify">lorem</p>
 
 ## Files description
 
