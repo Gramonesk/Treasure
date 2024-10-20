@@ -6,8 +6,9 @@
 </p>
 
 ## 🔴 About Game
-<p align="justify"> Trashure is a collaborative game specifically designed for promoting the process of waste regulation and environmental awareness. By combining educational objectives with engaging gameplay, this game aims to create a motivating and immersive learning experience for users of all ages.
-</p>
+Trashure is a 3D Multiplayer Casual Party Game. Managing and processing trash has been a challenge throughout the world. Alone or with friends, help the world by managing things in Trashure factory. Work together, avoid disaster, and most importantly process all the trash for customer.
+<br>
+The project itself was specifically designed for promoting the process of waste regulation and environmental awareness. By combining educational objectives with engaging gameplay, this game aims to create a motivating and immersive learning experience for users of age 12 - 40 years old. The game is suitable for both educational settings and casual gamers who wish to learn in a more interactive and enjoyable manner.
 <br>
 
 ## 📋 Project Info 
@@ -74,14 +75,6 @@
 
 - Yohanes Duns Scotus Aerotri Tunyanan (3D Artist)
 - Justin Tjokro (Game Designer)
-
-<h3>Game Description</h3>
-<p align="justify"> Trashure is a 3D Multiplayer Casual Party Game. Managing and processing trash has been a challenge throughout the world. Alone or with friends, help the world by managing things in Trashure factory. Work together, avoid disaster, and most importantly process all the trash for customer.
-</p>
-
-<h3>Target Audience</h3>
-<p align="justify"> <b>Trashure</b> is designed for 12 - 40 years old individuals who are interested in environmental issues and sustainable practices. The game is suitable for both educational settings and casual gamers who wish to learn in a more interactive and enjoyable manner.
-</p>
 
 ## Files description
 
