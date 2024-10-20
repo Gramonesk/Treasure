@@ -26,6 +26,7 @@
 ## 👤Contributions
 
 - Mario Valent Wibowo (Lead Programmer)
+  
 <details>
   <summary> Philips Sanjaya (Programmer) </summary>
   
@@ -43,9 +44,34 @@
   - I learned more about the learning and research process in tackling a problem as this project was made recently after the new multiplayer framework released. This was way ahead of what our team expected as we were informed that the multiplayer implimentation was easy. Though at that time we did not think through by using another multiplayer framework but to keep on developing the game using bare knowledge none other than the documentation itself. Through reading on the documentation, i developed my reading skills to grasp such knowledge effortlessly. As another plus, my abiltity to analyze and deconstruct the whole idea through testing it makes it much more easier to be discerned.
   - Throughout the project, i learned to communicate with the teammates and also improved problem solving skills mainly program designing to tackle an approach. I learned to do an effective communication with the other programmer, providing him concepts to problems that was a problem for him personally.
   <br>
+
+  
 </details>
 
-- Totti Adithana (Project Manager)
+
+<details>
+  <summary> Totti Adithana (Project Manager & UI Design) </summary>
+
+  **More Details**
+  1. Using Trello Workspace
+     - I utilize Trello as the central platform for managing the game development process.
+     - It allows me to organize tasks, track progress, and ensure seamless communication within the team.
+      
+  3. Ensuring Team Efficiency and Timely Development
+     - My role includes overseeing the team’s workflow, ensuring deadlines are met.
+     - making sure that everyone stays aligned with project milestones, promoting efficient collaboration.
+    
+  2. UI Design for a More Immersive Experience
+     - I focus on designing intuitive and dynamic UI elements, such as the main menu, to enhance the overall game experience and make it more immersive and engaging for players.
+  
+  **What i learned**
+
+- Throughout this process, I’ve strengthened my project management skills by effectively using Trello to organize tasks, track progress, and ensure smooth communication across the team. This experience has also enhanced my leadership abilities, allowing me to maintain team focus and productivity, especially when working under deadlines.
+
+- I’ve also deepened my expertise in UI design, focusing on creating immersive and visually engaging interfaces. By balancing aesthetics with functionality, I’ve gained a better understanding of how user-centric design can elevate the overall player experience.
+  
+</details>
+
 - Yohanes Duns Scotus Aerotri Tunyanan (3D Artist)
 - Justin Tjokro (Game Designer)
 
