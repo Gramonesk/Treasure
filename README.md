@@ -28,12 +28,12 @@ The project itself was specifically designed for promoting the process of waste 
 
 | Location |  Script       | Description                                                  |
 |-----| ------- | ------------------------------------------------------------ |
-|DataPersistence| `DataManager.cs` | Manages data storage and data distribution towards the interfaces. |
-|DataPersistence| `DataHandler.cs` | Handles the save and loading system for the game. |
-|Gameplay| `Inventory.cs` | Stores picture data and its detail for further uses during gameplay. |
-|Manager| `UIManager.cs`  | Manages pausing and various UI element functions. |
-|Underwater| `ScreenshotHandler.cs`  | Handles screenshot and also album creating. |
-| | `etc`  | |
+||  |  |
+||  |  |
+||  |  |
+||  |  |
+||  |  |
+|| `etc`  | |
 <br>
 
 ## 👤Contributions
