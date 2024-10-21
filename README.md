@@ -24,6 +24,18 @@ The project itself was specifically designed for promoting the process of waste 
 | Justin Tjokro | Game Designer | 7 days |
 <br>
 
+## 📜 Scripts and Features
+
+| Location |  Script       | Description                                                  |
+|-----| ------- | ------------------------------------------------------------ |
+|DataPersistence| `DataManager.cs` | Manages data storage and data distribution towards the interfaces. |
+|DataPersistence| `DataHandler.cs` | Handles the save and loading system for the game. |
+|Gameplay| `Inventory.cs` | Stores picture data and its detail for further uses during gameplay. |
+|Manager| `UIManager.cs`  | Manages pausing and various UI element functions. |
+|Underwater| `ScreenshotHandler.cs`  | Handles screenshot and also album creating. |
+| | `etc`  | |
+<br>
+
 ## 👤Contributions
 
 - Mario Valent Wibowo (Lead Programmer)
@@ -75,8 +87,9 @@ The project itself was specifically designed for promoting the process of waste 
 
 - Yohanes Duns Scotus Aerotri Tunyanan (3D Artist)
 - Justin Tjokro (Game Designer)
+<br>
 
-## Files description
+## 📂Files description
 
 ```
 ├── Trashure-Main              # In this Folder, containing the Unity files and README file
@@ -91,7 +104,7 @@ The project itself was specifically designed for promoting the process of waste 
 ```
 <br>
 
-## Game controls
+## 🕹️ Controls
 
 The following controls are bound in-game, for gameplay and testing.
 
@@ -100,8 +113,8 @@ The following controls are bound in-game, for gameplay and testing.
 | WASD | Player Movement |
 | LMB | Pickup Item |
 | RMB | Drop Item |
-
-<h3>Download Game</h3>
+<br>
+## Download Game
 Currently the latest version is not downloadable yet as it is in further development and polishing
 
 If you volunteer in trying our game, feel free to try and also please report us when encountering a major bug or problem
