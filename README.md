@@ -114,6 +114,7 @@ The following controls are bound in-game, for gameplay and testing.
 | LMB | Pickup Item |
 | RMB | Drop Item |
 <br>
+
 ## Download Game
 Currently the latest version is not downloadable yet as it is in further development and polishing
 
